@@ -183,7 +183,7 @@ public class FXMLController implements Initializable {
     @FXML
     void saveMiddleSquaresXls() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel files (*.xls)", "*.xls"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel files (*.xlsx)", "*.xlsx"));
         File file = fileChooser.showSaveDialog(mainTabbedPanel.getScene().getWindow());
         FileUtils.saveAsExcel(new ArrayList<>(middleSquaresResult), file);
     }
