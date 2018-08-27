@@ -45,7 +45,7 @@ public class MiddleSquares {
     public ArrayList<BigInteger> generate() {
         BigInteger result = extract(seed.pow(2));
         numbers.add(new BigInteger(result.toString()));
-        for (int i = 0; i < iterations; i++) {
+        for (int i = 0; i < iterations-1; i++) {
             result = extract(result.pow(2));
             if (result.equals(BigInteger.ZERO)) {
                 numbers.add(BigInteger.ZERO);
@@ -66,7 +66,7 @@ public class MiddleSquares {
     public void generateIn(ObservableList<String> list) {
         BigInteger result = extract(seed.pow(2));
         list.add(completeNumber(result));
-        for (int i = 0; i < iterations; i++) {
+        for (int i = 0; i < iterations-1; i++) {
             result = extract(result.pow(2));
             if (result.equals(BigInteger.ZERO)) {
                 list.add(completeNumber(BigInteger.ZERO));
