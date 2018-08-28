@@ -4,8 +4,7 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
-import com.yuliamz.logic.MiddleSquares;
-import com.yuliamz.logic.Utils;
+import com.yuliamz.logic.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -22,12 +22,14 @@ import java.io.File;
 import java.math.BigInteger;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class FXMLController implements Initializable {
 
 
     private ObservableList<String> middleSquaresResult;
+    private ObservableList<Float> congruentialLinealResult, congruentialMultiResult;
     private Thread threadMiddleSquaresExec;
 
     @FXML
@@ -40,8 +42,104 @@ public class FXMLController implements Initializable {
     private JFXToggleButton infiniteGenerationToggle;
     @FXML
     private JFXListView<String> numbersList;
+
     @FXML
-    private Button saveMiddleSquaresTxtButton, generateMiddleSquearesButton, stopMiddleSquearesButton, saveMiddleSquaresXlsButton;
+    private ListView<Float> listNumbersConLineal, listNumbersConMulti;
+
+    @FXML
+    private Button saveMiddleSquaresTxtButton, generateMiddleSquearesButton, stopMiddleSquearesButton, saveMiddleSquaresXlsButton, saveConLinealTxtButton, saveConLinealXlsButton, saveConMultiTxtButton, saveConMultiXlsButton;
+
+    @FXML
+    private JFXTextField xoInput, xoInputM;
+
+    @FXML
+    private JFXTextField aInput, aInputM;
+
+    @FXML
+    private JFXTextField bInput;
+
+    @FXML
+    private JFXTextField mInput, mInputM;
+
+    @FXML
+    private JFXTextField iterationsInput, iterationsInputM;
+
+    @FXML
+    void saveConMultiTxt(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));
+        File file = fileChooser.showSaveDialog(mainTabbedPanel.getScene().getWindow());
+        List<String> strings = new ArrayList<>();
+        congruentialMultiResult.forEach(e -> strings.add("" + e));
+        FileUtils.saveAsPlainText(new ArrayList<>(strings), file);
+    }
+
+    @FXML
+    void saveConMultiXls() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel files (*.xlsx)", "*.xlsx"));
+        File file = fileChooser.showSaveDialog(mainTabbedPanel.getScene().getWindow());
+        List<String> strings = new ArrayList<>();
+        congruentialMultiResult.forEach(e -> strings.add("" + e));
+        FileUtils.saveAsExcel(new ArrayList<>(strings), file);
+    }
+
+
+    @FXML
+    void saveConLinealTxt(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));
+        File file = fileChooser.showSaveDialog(mainTabbedPanel.getScene().getWindow());
+        List<String> strings = new ArrayList<>();
+        congruentialLinealResult.forEach(e -> strings.add("" + e));
+        FileUtils.saveAsPlainText(new ArrayList<>(strings), file);
+    }
+
+    @FXML
+    void saveConLinealXls() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel files (*.xlsx)", "*.xlsx"));
+        File file = fileChooser.showSaveDialog(mainTabbedPanel.getScene().getWindow());
+        List<String> strings = new ArrayList<>();
+        congruentialLinealResult.forEach(e -> strings.add("" + e));
+        FileUtils.saveAsExcel(new ArrayList<>(strings), file);
+    }
+
+
+    @FXML
+    void generateCongruenLineal(ActionEvent event) {
+        congruentialLinealResult.clear();
+        OperationCongruenceLinear linear = new OperationCongruenceLinear(new Congruence_linear(
+                Integer.parseInt(aInput.getText()),
+                Integer.parseInt(bInput.getText()),
+                Integer.parseInt(mInput.getText()),
+                Integer.parseInt(xoInput.getText()),
+                Integer.parseInt(iterationsInput.getText())));
+        linear.iteration(congruentialLinealResult);
+        congruentialLinealResult.forEach(System.out::println);
+        saveConLinealTxtButton.setDisable(false);
+        saveConLinealXlsButton.setDisable(false);
+    }
+
+    @FXML
+    void generateCongruenMulti(ActionEvent event) {
+        congruentialMultiResult.clear();
+        OperationCongruenceMultiply multiply = new OperationCongruenceMultiply(new Congruence_Multiply(
+                Integer.parseInt(aInputM.getText()),
+                Integer.parseInt(mInputM.getText()),
+                Integer.parseInt(xoInputM.getText()),
+                Integer.parseInt(iterationsInputM.getText())));
+        multiply.iteration(congruentialMultiResult);
+
+        saveConMultiTxtButton.setDisable(false);
+        saveConMultiXlsButton.setDisable(false);
+    }
+
+
+
+
+
+
 
     @FXML
     void checkInfiniteGenerationInput(KeyEvent event) {
@@ -190,5 +288,9 @@ public class FXMLController implements Initializable {
         new GUIConstants();
         middleSquaresResult = FXCollections.observableArrayList();
         numbersList.setItems(middleSquaresResult);
+        congruentialLinealResult = FXCollections.observableArrayList();
+        listNumbersConLineal.setItems(congruentialLinealResult);
+        congruentialMultiResult = FXCollections.observableArrayList();
+        listNumbersConMulti.setItems(congruentialMultiResult);
     }
 }
