@@ -5,7 +5,7 @@
 
     <groupId>com.Yuliamz</groupId>
     <artifactId>Pseudo-Aleatorios</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Pseudo-Aleatorios</name>
@@ -53,7 +53,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${java.home}/../bin/javafxpackager</executable>
+                            <executable>${java.home}/../bin/javapackager</executable>
                             <arguments>
                                 <argument>-createjar</argument>
                                 <argument>-nocss2bin</argument>

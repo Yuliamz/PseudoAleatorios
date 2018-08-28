@@ -11,7 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -21,7 +23,6 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class FXMLController implements Initializable {
 
@@ -30,61 +31,17 @@ public class FXMLController implements Initializable {
     private Thread threadMiddleSquaresExec;
 
     @FXML
-    private MenuItem exitMenuItem;
-
-    @FXML
-    private MenuItem middleSquaresMenuItem;
-
-    @FXML
-    private MenuItem congruentialMenuItem;
-
-    @FXML
-    private MenuItem uniformMenuItem;
-
-    @FXML
-    private MenuItem aboutMenuItem;
-
-    @FXML
     private TabPane mainTabbedPanel;
-
-    @FXML
-    private Tab middleSquresTab;
-
     @FXML
     private JFXSpinner loadingSpinner;
-
     @FXML
-    private JFXTextField seedTextField;
-
-    @FXML
-    private JFXTextField infiniteGenerationInput;
-
+    private JFXTextField seedTextField, infiniteGenerationInput;
     @FXML
     private JFXToggleButton infiniteGenerationToggle;
-
     @FXML
     private JFXListView<String> numbersList;
-
     @FXML
-    private Button saveMiddleSquaresTxtButton;
-
-    @FXML
-    private Tab congruentialTab;
-
-    @FXML
-    private Tab uniformTab;
-
-    @FXML
-    private Tab testTab;
-
-    @FXML
-    private Button generateMiddleSquearesButton;
-
-    @FXML
-    private Button stopMiddleSquearesButton;
-
-    @FXML
-    private Button saveMiddleSquaresXlsButton;
+    private Button saveMiddleSquaresTxtButton, generateMiddleSquearesButton, stopMiddleSquearesButton, saveMiddleSquaresXlsButton;
 
     @FXML
     void checkInfiniteGenerationInput(KeyEvent event) {
@@ -143,13 +100,11 @@ public class FXMLController implements Initializable {
         if (Utils.isValidSeed(seed)) {
             if (infiniteGenerationToggle.isSelected()) {
                 disableAndEnabled();
-                MiddleSquares middleSquares = new MiddleSquares(new BigInteger(seed));
-                startThreadMiddlleSquares(middleSquares);
+                startThreadMiddlleSquares(new MiddleSquares(new BigInteger(seed)));
             } else {
                 if (Utils.isValidIterationsNumber(iterations)) {
                     disableAndEnabled();
-                    MiddleSquares middleSquares = new MiddleSquares(new BigInteger(seed), Integer.parseInt(iterations));
-                    startThreadMiddlleSquares(middleSquares);
+                    startThreadMiddlleSquares(new MiddleSquares(new BigInteger(seed), Integer.parseInt(iterations)));
                 } else {
                     showAlertCantGenerate();
                 }
