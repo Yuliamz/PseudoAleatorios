@@ -1,6 +1,8 @@
 package com.yuliamz.logic;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Utils {
 
@@ -22,5 +24,11 @@ public class Utils {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public static List<String> convertFloatToString(List<Float> floats) {
+        List<String> strings = new ArrayList<>();
+        floats.forEach(e -> strings.add(String.valueOf(e)));
+        return strings;
     }
 }

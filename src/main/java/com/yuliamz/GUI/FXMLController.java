@@ -16,13 +16,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
 
-import java.io.File;
 import java.math.BigInteger;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class FXMLController implements Initializable {
@@ -65,44 +62,23 @@ public class FXMLController implements Initializable {
     private JFXTextField iterationsInput, iterationsInputM;
 
     @FXML
-    void saveConMultiTxt(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));
-        File file = fileChooser.showSaveDialog(mainTabbedPanel.getScene().getWindow());
-        List<String> strings = new ArrayList<>();
-        congruentialMultiResult.forEach(e -> strings.add("" + e));
-        FileUtils.saveAsPlainText(new ArrayList<>(strings), file);
+    void saveConMultiTxt() {
+        FileUtils.savePlainText(Utils.convertFloatToString(congruentialMultiResult), mainTabbedPanel.getScene().getWindow());
     }
 
     @FXML
     void saveConMultiXls() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel files (*.xlsx)", "*.xlsx"));
-        File file = fileChooser.showSaveDialog(mainTabbedPanel.getScene().getWindow());
-        List<String> strings = new ArrayList<>();
-        congruentialMultiResult.forEach(e -> strings.add("" + e));
-        FileUtils.saveAsExcel(new ArrayList<>(strings), file);
+        FileUtils.saveExcel(Utils.convertFloatToString(congruentialMultiResult), mainTabbedPanel.getScene().getWindow());
     }
 
-
     @FXML
-    void saveConLinealTxt(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));
-        File file = fileChooser.showSaveDialog(mainTabbedPanel.getScene().getWindow());
-        List<String> strings = new ArrayList<>();
-        congruentialLinealResult.forEach(e -> strings.add("" + e));
-        FileUtils.saveAsPlainText(new ArrayList<>(strings), file);
+    void saveConLinealTxt() {
+        FileUtils.savePlainText(Utils.convertFloatToString(congruentialLinealResult), mainTabbedPanel.getScene().getWindow());
     }
 
     @FXML
     void saveConLinealXls() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel files (*.xlsx)", "*.xlsx"));
-        File file = fileChooser.showSaveDialog(mainTabbedPanel.getScene().getWindow());
-        List<String> strings = new ArrayList<>();
-        congruentialLinealResult.forEach(e -> strings.add("" + e));
-        FileUtils.saveAsExcel(new ArrayList<>(strings), file);
+        FileUtils.saveExcel(Utils.convertFloatToString(congruentialLinealResult), mainTabbedPanel.getScene().getWindow());
     }
 
 
@@ -134,12 +110,6 @@ public class FXMLController implements Initializable {
         saveConMultiTxtButton.setDisable(false);
         saveConMultiXlsButton.setDisable(false);
     }
-
-
-
-
-
-
 
     @FXML
     void checkInfiniteGenerationInput(KeyEvent event) {
@@ -227,18 +197,12 @@ public class FXMLController implements Initializable {
 
     @FXML
     void saveMiddleSquaresTxt() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));
-        File file = fileChooser.showSaveDialog(mainTabbedPanel.getScene().getWindow());
-        FileUtils.saveAsPlainText(new ArrayList<>(middleSquaresResult), file);
+        FileUtils.savePlainText(new ArrayList<>(middleSquaresResult), mainTabbedPanel.getScene().getWindow());
     }
 
     @FXML
     void saveMiddleSquaresXls() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel files (*.xlsx)", "*.xlsx"));
-        File file = fileChooser.showSaveDialog(mainTabbedPanel.getScene().getWindow());
-        FileUtils.saveAsExcel(new ArrayList<>(middleSquaresResult), file);
+        FileUtils.saveExcel(new ArrayList<>(middleSquaresResult), mainTabbedPanel.getScene().getWindow());
     }
 
     @FXML
