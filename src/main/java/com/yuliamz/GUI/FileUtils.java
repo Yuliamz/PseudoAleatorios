@@ -44,7 +44,7 @@ class FileUtils {
         if (file != null) {
 
             XSSFWorkbook fWorkbook = new XSSFWorkbook();
-            XSSFSheet fSheet = fWorkbook.createSheet("Cuadrados Medios");
+            XSSFSheet fSheet = fWorkbook.createSheet(sheetName);
             for (int i = 0; i < numbers.size(); i++) {
                 fSheet.createRow(i).createCell(0).setCellValue(numbers.get(i));
             }
