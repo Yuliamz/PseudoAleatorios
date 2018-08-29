@@ -1,10 +1,10 @@
 package com.yuliamz.logic;
 
 public class Congruence_Multiply {
-    public int a;
-    public int m;
-    public int Xo;
-    public int iteration;
+    private int a;
+    private int m;
+    private int Xo;
+    private int iteration;
 
     public Congruence_Multiply(int a, int m, int xo, int iteration) {
         super();

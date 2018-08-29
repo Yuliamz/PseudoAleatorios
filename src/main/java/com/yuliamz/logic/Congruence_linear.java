@@ -4,11 +4,11 @@ package com.yuliamz.logic;
  * @author Walter
  */
 public class Congruence_linear {
-    public int a;
     public int b;
-    public int m;
-    public int Xo;
-    public int iteration;
+    private int a;
+    private int m;
+    private int Xo;
+    private int iteration;
 
     /**
      * este metodo es el constructor de la clase
@@ -47,10 +47,6 @@ public class Congruence_linear {
 
     public void setA(int a) {
         this.a = a;
-    }
-
-    public int getB() {
-        return b;
     }
 
     public void setB(int b) {

@@ -20,11 +20,11 @@ class FileUtils {
         writeAsPlainText(numbers, file);
     }
 
-    public static void saveExcel(List<String> numbers, Window window) {
+    public static void saveExcel(List<String> numbers, Window window,String sheetName) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel files (*.xlsx)", "*.xlsx"));
         File file = fileChooser.showSaveDialog(window);
-        writeAsExcel(numbers, file);
+        writeAsExcel(numbers, file,sheetName);
     }
 
     private static void writeAsPlainText(List<String> numbers, File file) {
@@ -40,7 +40,7 @@ class FileUtils {
         }
     }
 
-    private static void writeAsExcel(List<String> numbers, File file) {
+    private static void writeAsExcel(List<String> numbers, File file,String sheetName) {
         if (file != null) {
 
             XSSFWorkbook fWorkbook = new XSSFWorkbook();

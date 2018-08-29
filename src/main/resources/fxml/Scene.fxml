@@ -7,240 +7,214 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane id="AnchorPane" prefHeight="535.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yuliamz.GUI.FXMLController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" prefHeight="535.0" prefWidth="1000.0"
+            xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.yuliamz.GUI.FXMLController">
     <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="1000.0" style="-fx-font-size: 14;">
-        <menus>
-            <Menu mnemonicParsing="false" text="Inicio">
-                <items>
-                    <MenuItem fx:id="exitMenuItem" mnemonicParsing="false" onAction="#exit" text="Salir"/>
-                </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Métodos">
-                <items>
-                    <MenuItem fx:id="middleSquaresMenuItem" mnemonicParsing="false" onAction="#goToMiddleSquaresTab"
-                              text="Cuadrados Medios"/>
-                    <MenuItem fx:id="congruentialMenuItem" mnemonicParsing="false" onAction="#goToCongruentialTab"
-                              text="Congruenciales"/>
-                    <MenuItem fx:id="uniformMenuItem" mnemonicParsing="false" onAction="#goToUniformTab"
-                              text="Uniforme"/>
-                </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Ayuda">
-                <items>
-                    <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#openAbout" text="Acerca de"/>
-                </items>
-            </Menu>
-        </menus>
+        <Menu mnemonicParsing="false" text="Inicio">
+            <MenuItem mnemonicParsing="false" onAction="#exit" text="Salir"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Métodos">
+            <MenuItem mnemonicParsing="false" onAction="#goToMiddleSquaresTab"
+                      text="Cuadrados Medios"/>
+            <MenuItem mnemonicParsing="false" onAction="#goToCongruentialLinealTab"
+                      text="Congruencial Lineal"/>
+            <MenuItem mnemonicParsing="false" onAction="#goToCongruentialMultiTab"
+                      text="Congruencial Multiplicativo"/>
+            <MenuItem mnemonicParsing="false" onAction="#goToUniformTab"
+                      text="Uniforme"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Ayuda">
+            <MenuItem mnemonicParsing="false" onAction="#openAbout" text="Acerca de"/>
+        </Menu>
     </MenuBar>
     <TabPane fx:id="mainTabbedPanel" layoutY="27.0" prefHeight="504.0" prefWidth="1000.0"
              tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-            <Tab fx:id="middleSquresTab" closable="false" text="Cuadrados Medios">
-                <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                        <children>
-                            <JFXSpinner fx:id="loadingSpinner" layoutX="137.0" layoutY="351.0" prefHeight="98.0"
-                                        prefWidth="114.0" visible="false"/>
-                            <JFXTextField fx:id="seedTextField" focusColor="#009688" labelFloat="true" layoutX="44.0"
-                                          layoutY="31.0" onKeyReleased="#checkSeedInput" prefHeight="39.0"
-                                          prefWidth="280.0" promptText="Semilla" style="-fx-font-size: 18;"
-                                          unFocusColor="BLACK">
-                                <font>
-                                    <Font size="16.0"/>
-                                </font>
-                            </JFXTextField>
-                            <JFXTextField fx:id="infiniteGenerationInput" focusColor="#009688" labelFloat="true"
-                                          layoutX="44.0" layoutY="181.0" onKeyReleased="#checkInfiniteGenerationInput"
-                                          prefHeight="39.0" prefWidth="280.0" promptText="Cantidad de números a generar"
-                                          style="-fx-font-size: 18;" unFocusColor="BLACK">
-                                <font>
-                                    <Font size="16.0"/>
-                                </font>
-                            </JFXTextField>
-                            <JFXToggleButton fx:id="infiniteGenerationToggle" layoutX="72.0" layoutY="101.0"
-                                             onAction="#switchIterations" text="Generar todos los posibles">
-                                <font>
-                                    <Font size="13.0"/>
-                                </font>
-                            </JFXToggleButton>
-                            <JFXListView fx:id="numbersList" layoutX="400.0" layoutY="29.0" prefHeight="418.0"
-                                         prefWidth="257.0"/>
-                            <Button fx:id="generateMiddleSquearesButton" layoutX="102.0" layoutY="254.0"
-                                    mnemonicParsing="false" onAction="#generateMiddleSqueares" text="Generar">
-                                <font>
-                                    <Font size="14.0"/>
-                                </font>
-                            </Button>
-                            <Button fx:id="stopMiddleSquearesButton" cancelButton="true" layoutX="159.0" layoutY="295.0"
-                                    mnemonicParsing="false" onAction="#stopMiddleSqueares" text="Detener"
-                                    visible="false">
-                                <font>
-                                    <Font size="14.0"/>
-                                </font>
-                            </Button>
-                            <Label layoutX="683.0" layoutY="31.0" text="Exportar como">
-                                <font>
-                                    <Font size="15.0"/>
-                                </font>
-                            </Label>
-                            <Separator layoutX="680.0" layoutY="60.0" prefWidth="200.0"/>
-                            <Button fx:id="saveMiddleSquaresTxtButton" disable="true" layoutX="680.0" layoutY="76.0"
-                                    mnemonicParsing="false" onAction="#saveMiddleSquaresTxt" text="Texto plano">
-                                <font>
-                                    <Font size="14.0"/>
-                                </font>
-                            </Button>
-                            <Button fx:id="saveMiddleSquaresXlsButton" disable="true" layoutX="780.0" layoutY="76.0"
-                                    mnemonicParsing="false" onAction="#saveMiddleSquaresXls" text="Hoja de Excel">
-                                <font>
-                                    <Font size="14.0"/>
-                                </font>
-                            </Button>
-                            <Button layoutX="216.0" layoutY="254.0" mnemonicParsing="false"
-                                    onAction="#cleanMiddleSquares" text="Borrar">
-                                <font>
-                                    <Font size="14.0"/>
-                                </font>
-                            </Button>
-                        </children>
-                    </AnchorPane>
-                </content>
-            </Tab>
-            <Tab fx:id="congruentialTab" closable="false" text="Congruencial Lineal">
-                <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                        <children>
-                            <JFXTextField labelFloat="true" layoutX="53.0" layoutY="38.0" promptText="Xo"
-                                          fx:id="xoInput">
-                                <font>
-                                    <Font size="15.0"/>
-                                </font>
-                            </JFXTextField>
-                            <JFXTextField fx:id="aInput" labelFloat="true" layoutX="53.0" layoutY="96.0" promptText="a">
-                                <font>
-                                    <Font size="15.0"/>
-                                </font>
-                            </JFXTextField>
-                            <JFXTextField fx:id="bInput" labelFloat="true" layoutX="53.0" layoutY="162.0"
-                                          promptText="b">
-                                <font>
-                                    <Font size="15.0"/>
-                                </font>
-                            </JFXTextField>
-                            <JFXTextField fx:id="mInput" labelFloat="true" layoutX="53.0" layoutY="222.0"
-                                          promptText="m">
-                                <font>
-                                    <Font size="15.0"/>
-                                </font>
-                            </JFXTextField>
-                            <JFXTextField fx:id="iterationsInput" labelFloat="true" layoutX="53.0" layoutY="285.0"
-                                          promptText="Iteraciones">
-                                <font>
-                                    <Font size="15.0"/>
-                                </font>
-                            </JFXTextField>
-                            <Button layoutX="112.0" layoutY="369.0" mnemonicParsing="false"
-                                    onAction="#generateCongruenLineal" text="Generar"/>
-                            <ListView fx:id="listNumbersConLineal" layoutX="400.0" layoutY="27.0" prefHeight="379.0"
-                                      prefWidth="263.0"/>
-                            <Separator layoutX="682.0" layoutY="69.0" prefWidth="200.0"/>
-                            <Button fx:id="saveConLinealTxtButton" disable="true" layoutX="682.0" layoutY="81.0"
-                                    mnemonicParsing="false" onAction="#saveConLinealTxt" text="Texto plano">
-                                <font>
-                                    <Font size="14.0"/>
-                                </font>
-                            </Button>
-                            <Button fx:id="saveConLinealXlsButton" disable="true" layoutX="796.0" layoutY="81.0"
-                                    mnemonicParsing="false" onAction="#saveConLinealXls" text="Hoja de Excel">
-                                <font>
-                                    <Font size="14.0"/>
-                                </font>
-                            </Button>
-                            <Label layoutX="682.0" layoutY="38.0" text="Exportar como">
-                                <font>
-                                    <Font size="16.0"/>
-                                </font>
-                            </Label>
-                        </children>
-                    </AnchorPane>
-                </content>
-            </Tab>
-            <Tab fx:id="congruentialTab1" closable="false" text="Congruencial Multiplicativo">
-                <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                        <children>
-                            <JFXTextField labelFloat="true" layoutX="53.0" layoutY="38.0" promptText="Xo"
-                                          fx:id="xoInputM">
-                                <font>
-                                    <Font size="15.0"/>
-                                </font>
-                            </JFXTextField>
-                            <JFXTextField fx:id="aInputM" labelFloat="true" layoutX="53.0" layoutY="96.0"
-                                          promptText="a">
-                                <font>
-                                    <Font size="15.0"/>
-                                </font>
-                            </JFXTextField>
-                            <JFXTextField fx:id="mInputM" labelFloat="true" layoutX="53.0" layoutY="155.0"
-                                          promptText="m">
-                                <font>
-                                    <Font size="15.0"/>
-                                </font>
-                            </JFXTextField>
-                            <JFXTextField fx:id="iterationsInputM" labelFloat="true" layoutX="53.0" layoutY="218.0"
-                                          promptText="Iteraciones">
-                                <font>
-                                    <Font size="15.0"/>
-                                </font>
-                            </JFXTextField>
-                            <Button layoutX="112.0" layoutY="369.0" mnemonicParsing="false"
-                                    onAction="#generateCongruenMulti" text="Generar"/>
-                            <ListView fx:id="listNumbersConMulti" layoutX="400.0" layoutY="27.0" prefHeight="379.0"
-                                      prefWidth="263.0"/>
-                            <Separator layoutX="682.0" layoutY="69.0" prefWidth="200.0"/>
-                            <Button fx:id="saveConMultiTxtButton" disable="true" layoutX="682.0" layoutY="81.0"
-                                    mnemonicParsing="false" onAction="#saveConMultiTxt" text="Texto plano">
-                                <font>
-                                    <Font size="14.0"/>
-                                </font>
-                            </Button>
-                            <Button fx:id="saveConMultiXlsButton" disable="true" layoutX="796.0" layoutY="81.0"
-                                    mnemonicParsing="false" onAction="#saveConMultiXls" text="Hoja de Excel">
-                                <font>
-                                    <Font size="14.0"/>
-                                </font>
-                            </Button>
-                            <Label layoutX="682.0" layoutY="38.0" text="Exportar como">
-                                <font>
-                                    <Font size="16.0"/>
-                                </font>
-                            </Label>
-                        </children>
-                    </AnchorPane>
-                </content>
-            </Tab>
-            <Tab fx:id="uniformTab" closable="false" text="Distribución Uniforme">
-                <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                        <children>
-                            <BarChart layoutX="297.0" layoutY="38.0" legendSide="TOP" title="Distribución">
-                                <xAxis>
-                                    <CategoryAxis side="BOTTOM"/>
-                                </xAxis>
-                                <yAxis>
-                                    <NumberAxis side="LEFT"/>
-                                </yAxis>
-                            </BarChart>
-                        </children>
-                    </AnchorPane>
-                </content>
-            </Tab>
-            <Tab fx:id="testTab" text="Pruebas">
-                <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
-                </content>
-            </Tab>
-        </tabs>
+        <Tab closable="false" text="Cuadrados Medios">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <JFXSpinner fx:id="loadingSpinner" layoutX="137.0" layoutY="351.0" prefHeight="98.0"
+                            prefWidth="114.0" visible="false"/>
+                <JFXTextField fx:id="seedTextField" focusColor="#009688" labelFloat="true" layoutX="44.0"
+                              layoutY="31.0" onKeyReleased="#checkSeedInput" prefHeight="39.0"
+                              prefWidth="280.0" promptText="Semilla" style="-fx-font-size: 18;"
+                              unFocusColor="BLACK">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </JFXTextField>
+                <JFXTextField fx:id="infiniteGenerationInput" focusColor="#009688" labelFloat="true"
+                              layoutX="44.0" layoutY="181.0" onKeyReleased="#checkInfiniteGenerationInput"
+                              prefHeight="39.0" prefWidth="280.0" promptText="Cantidad de números a generar"
+                              style="-fx-font-size: 18;" unFocusColor="BLACK">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </JFXTextField>
+                <JFXToggleButton fx:id="infiniteGenerationToggle" layoutX="72.0" layoutY="101.0"
+                                 onAction="#switchIterations" text="Generar todos los posibles">
+                    <font>
+                        <Font size="13.0"/>
+                    </font>
+                </JFXToggleButton>
+                <JFXListView fx:id="numbersList" layoutX="400.0" layoutY="29.0" prefHeight="418.0"
+                             prefWidth="257.0"/>
+                <Button fx:id="generateMiddleSquearesButton" layoutX="102.0" layoutY="254.0"
+                        mnemonicParsing="false" onAction="#generateMiddleSqueares" text="Generar">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="stopMiddleSquearesButton" cancelButton="true" layoutX="159.0" layoutY="295.0"
+                        mnemonicParsing="false" onAction="#stopMiddleSqueares" text="Detener"
+                        visible="false">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Label layoutX="683.0" layoutY="31.0" text="Exportar como">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+                <Separator layoutX="680.0" layoutY="60.0" prefWidth="200.0"/>
+                <Button fx:id="saveMiddleSquaresTxtButton" disable="true" layoutX="680.0" layoutY="76.0"
+                        mnemonicParsing="false" onAction="#saveMiddleSquaresTxt" text="Texto plano">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="saveMiddleSquaresXlsButton" disable="true" layoutX="780.0" layoutY="76.0"
+                        mnemonicParsing="false" onAction="#saveMiddleSquaresXls" text="Hoja de Excel">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Button layoutX="216.0" layoutY="254.0" mnemonicParsing="false"
+                        onAction="#cleanMiddleSquares" text="Borrar">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+            </AnchorPane>
+        </Tab>
+        <Tab closable="false" text="Congruencial Lineal">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <JFXTextField labelFloat="true" layoutX="53.0" layoutY="38.0" promptText="Xo"
+                              fx:id="xoInput">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </JFXTextField>
+                <JFXTextField fx:id="aInput" labelFloat="true" layoutX="53.0" layoutY="96.0" promptText="a">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </JFXTextField>
+                <JFXTextField fx:id="bInput" labelFloat="true" layoutX="53.0" layoutY="162.0"
+                              promptText="b">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </JFXTextField>
+                <JFXTextField fx:id="mInput" labelFloat="true" layoutX="53.0" layoutY="222.0"
+                              promptText="m">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </JFXTextField>
+                <JFXTextField fx:id="iterationsInput" labelFloat="true" layoutX="53.0" layoutY="285.0"
+                              promptText="Iteraciones">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </JFXTextField>
+                <Button layoutX="112.0" layoutY="369.0" mnemonicParsing="false"
+                        onAction="#generateCongruenLineal" text="Generar"/>
+                <ListView fx:id="listNumbersConLineal" layoutX="400.0" layoutY="27.0" prefHeight="379.0"
+                          prefWidth="263.0"/>
+                <Separator layoutX="682.0" layoutY="69.0" prefWidth="200.0"/>
+                <Button fx:id="saveConLinealTxtButton" disable="true" layoutX="682.0" layoutY="81.0"
+                        mnemonicParsing="false" onAction="#saveConLinealTxt" text="Texto plano">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="saveConLinealXlsButton" disable="true" layoutX="796.0" layoutY="81.0"
+                        mnemonicParsing="false" onAction="#saveConLinealXls" text="Hoja de Excel">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Label layoutX="682.0" layoutY="38.0" text="Exportar como">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+            </AnchorPane>
+        </Tab>
+        <Tab closable="false" text="Congruencial Multiplicativo">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <JFXTextField labelFloat="true" layoutX="53.0" layoutY="38.0" promptText="Xo"
+                              fx:id="xoInputM">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </JFXTextField>
+                <JFXTextField fx:id="aInputM" labelFloat="true" layoutX="53.0" layoutY="96.0"
+                              promptText="a">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </JFXTextField>
+                <JFXTextField fx:id="mInputM" labelFloat="true" layoutX="53.0" layoutY="155.0"
+                              promptText="m">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </JFXTextField>
+                <JFXTextField fx:id="iterationsInputM" labelFloat="true" layoutX="53.0" layoutY="218.0"
+                              promptText="Iteraciones">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </JFXTextField>
+                <Button layoutX="112.0" layoutY="369.0" mnemonicParsing="false"
+                        onAction="#generateCongruenMulti" text="Generar"/>
+                <ListView fx:id="listNumbersConMulti" layoutX="400.0" layoutY="27.0" prefHeight="379.0"
+                          prefWidth="263.0"/>
+                <Separator layoutX="682.0" layoutY="69.0" prefWidth="200.0"/>
+                <Button fx:id="saveConMultiTxtButton" disable="true" layoutX="682.0" layoutY="81.0"
+                        mnemonicParsing="false" onAction="#saveConMultiTxt" text="Texto plano">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="saveConMultiXlsButton" disable="true" layoutX="796.0" layoutY="81.0"
+                        mnemonicParsing="false" onAction="#saveConMultiXls" text="Hoja de Excel">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Label layoutX="682.0" layoutY="38.0" text="Exportar como">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+            </AnchorPane>
+        </Tab>
+        <Tab closable="false" text="Distribución Uniforme">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <BarChart layoutX="297.0" layoutY="38.0" legendSide="TOP" title="Distribución">
+                    <xAxis>
+                        <CategoryAxis side="BOTTOM"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis side="LEFT"/>
+                    </yAxis>
+                </BarChart>
+            </AnchorPane>
+        </Tab>
+        <Tab text="Pruebas">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+        </Tab>
     </TabPane>
 </AnchorPane>

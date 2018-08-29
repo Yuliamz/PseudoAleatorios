@@ -1,5 +1,6 @@
 package com.yuliamz.logic;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 
 import java.math.BigInteger;
@@ -45,7 +46,7 @@ public class MiddleSquares {
     public ArrayList<BigInteger> generate() {
         BigInteger result = extract(seed.pow(2));
         numbers.add(new BigInteger(result.toString()));
-        for (int i = 0; i < iterations-1; i++) {
+        for (int i = 0; i < iterations - 1; i++) {
             result = extract(result.pow(2));
             if (result.equals(BigInteger.ZERO)) {
                 numbers.add(BigInteger.ZERO);
@@ -66,14 +67,12 @@ public class MiddleSquares {
     public void generateIn(ObservableList<String> list) {
         BigInteger result = extract(seed.pow(2));
         list.add(completeNumber(result));
-        for (int i = 0; i < iterations-1; i++) {
+        for (int i = 0; i < iterations - 1; i++) {
             result = extract(result.pow(2));
-            if (result.equals(BigInteger.ZERO)) {
-                list.add(completeNumber(BigInteger.ZERO));
-                break;
-            }
-            if (list.contains(completeNumber(result))) break;
-            list.add(completeNumber(result));
+            String add2 = completeNumber(result);
+            if (list.contains(add2)) break;
+            list.add(add2);
+//            Platform.runLater(() -> list.add(add2));
         }
     }
 

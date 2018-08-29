@@ -9,7 +9,7 @@ import javafx.collections.FXCollections;
  *
  * @author Walter
  */
-public class TestCongruenceLinear {
+class TestCongruenceLinear {
     public static void main(String[] args) {
         OperationCongruenceLinear linear = new OperationCongruenceLinear(new Congruence_linear(5, 7, 8, 1, 15));
         linear.iteration(FXCollections.observableArrayList());

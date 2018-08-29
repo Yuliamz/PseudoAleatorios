@@ -27,16 +27,15 @@ public class OperationCongruenceLinear {
     /**
      * este metodo permite calcular un Xi seg�n los parametros de entrada, a,b y m, este valor se guarda en un vector
      */
-    public void calculateModuloXi() {
-        int aux = (congruence.getA() * this.Xi + congruence.b) % congruence.getM();
-        this.Xi = aux;
+    private void calculateModuloXi() {
+        this.Xi = (congruence.getA() * this.Xi + congruence.b) % congruence.getM();
         listXi.add(this.Xi);
     }
 
     /**
      * este metodo permite calcular los Ui seg�n un datos Xi y el valor de m - 1, este valor se guarda en un vector
      */
-    public void calculateUi(ObservableList<Float> floats) {
+    private void calculateUi(ObservableList<Float> floats) {
         this.Ui = (float) (this.Xi) / (congruence.getM() - 1);
         floats.add(Ui);
         listUi.add(Ui);
