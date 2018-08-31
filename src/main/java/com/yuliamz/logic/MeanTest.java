@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Yuliamz
  */
-public class MiddlesTest {
+public class MeanTest {
     
     private final int acceptationGrade;
     private final int errorGrade;
@@ -19,7 +19,7 @@ public class MiddlesTest {
     private final double LI;
     private final List<Float> list;
 
-    public MiddlesTest(ArrayList<Float> numbers,int acceptationGrade) {
+    public MeanTest(ArrayList<Float> numbers, int acceptationGrade) {
         this.acceptationGrade=acceptationGrade;
         this.errorGrade=100-acceptationGrade;
         this.list=numbers;

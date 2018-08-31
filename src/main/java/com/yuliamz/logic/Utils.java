@@ -1,9 +1,10 @@
 package com.yuliamz.logic;
 
+import org.apache.commons.math3.distribution.NormalDistribution;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.math3.distribution.NormalDistribution;
 
 public class Utils {
     
@@ -25,22 +26,33 @@ public class Utils {
         nums.forEach(e -> strings.add(String.valueOf(e)));
         return strings;
     }
-    
+
+    public static double[] convertFloatToDouble(List<Float> nums) {
+        double[] ds = new double[nums.size()];
+        for (int i = 0; i < nums.size(); i++) ds[i] = Double.parseDouble(String.valueOf(nums.get(i)));
+        return ds;
+    }
+
+    public static double[] convertStringToDouble(List<String> nums) {
+        double[] ds = new double[nums.size()];
+        for (int i = 0; i < nums.size(); i++) ds[i] = Double.parseDouble(nums.get(i));
+        return ds;
+    }
+
     public static List<BigInteger> convertStringToBigInteger(List<String> nums) {
         List<BigInteger> integers = new ArrayList<>();
         nums.forEach(e -> integers.add(new BigInteger(e)));
         return integers;
     }
-    
+
     public static List<Float> convertStringToFloat(List<String> nums) {
         List<Float> floats = new ArrayList<>();
         nums.forEach(e -> floats.add(Float.valueOf(e)));
         return floats;
     }
-    
-    
-    public static boolean isNumber(String num){
-        if (num==null) return false;
+
+    public static boolean isNumber(String num) {
+        if (num == null) return false;
         if (num.isEmpty()) return false;
         return num.chars().allMatch(Character::isDigit);
     }
