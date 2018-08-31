@@ -7,13 +7,13 @@ import com.jfoenix.controls.JFXToggleButton;
 import com.yuliamz.logic.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
-import javafx.scene.paint.Color;
 
 import java.math.BigInteger;
 import java.net.URL;
@@ -237,4 +237,19 @@ public class FXMLController implements Initializable {
         listNumbersConMulti.setItems(congruentialMultiResult);
     }
 
+    public void testMeans(ActionEvent event) {
+        MeanTest meanTest = new MeanTest(Utils.convertStringToFloat(middleSquaresResult), 95);
+        System.out.println(meanTest.toString());
+        System.out.println("Validos: " + meanTest.isValid());
+    }
+
+    public void testVariance(ActionEvent event) {
+        VarianceTest varianceTest = new VarianceTest((ArrayList<Float>) Utils.convertStringToFloat(middleSquaresResult), 95);
+        System.out.println(varianceTest.toString());
+        System.out.println("Validos: " + varianceTest.isValid());
+    }
+
+    public void testKS(ActionEvent event) {
+
+    }
 }
