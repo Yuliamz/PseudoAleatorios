@@ -1,28 +1,19 @@
 package com.yuliamz.GUI;
 
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXSlider;
-import com.jfoenix.controls.JFXSpinner;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXToggleButton;
+import com.jfoenix.controls.*;
 import com.yuliamz.logic.*;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 
 import java.math.BigInteger;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Label;
 
 public class FXMLController implements Initializable {
 
@@ -42,13 +33,14 @@ public class FXMLController implements Initializable {
     @FXML
     private JFXListView<Double> numbersList;
     @FXML
-    private ListView<Double> listNumbersConLineal,listNumbersConMulti,listMeanTest;
+    private ListView<Double> listNumbersConLineal, listNumbersConMulti, listMeanTest, listVarianceTest;
     @FXML
-    private Button saveMiddleSquaresTxtButton, generateMiddleSquearesButton, stopMeanSquearesButton, saveMiddleSquaresXlsButton, saveConLinealTxtButton, saveConLinealXlsButton, saveConMultiTxtButton, saveConMultiXlsButton,testMeansButton,testVarianceButton,testKSButton;
+    private Button saveMiddleSquaresTxtButton, generateMiddleSquearesButton, stopMeanSquearesButton, saveMiddleSquaresXlsButton, saveConLinealTxtButton, saveConLinealXlsButton, saveConMultiTxtButton, saveConMultiXlsButton, testMeansButton, testVarianceButton, testKSButton, doTestMeansButton;
     @FXML
-    private JFXSlider meanAcceptGradesSlider;
+    private JFXSlider meanAcceptGradesSlider, varianceAcceptGradesSlider;
     @FXML
-    private Label meanAcceptGradeLabel,meanAlphaLabel,meanMeanLabel,meanNLabel,meanOneAlphaLabel,meanZLabel,meanLILabel,meanLSLabel,meanValidLabel;
+    private Label meanAcceptGradeLabel, meanAlphaLabel, meanMeanLabel, meanNLabel, meanOneAlphaLabel, meanZLabel, meanLILabel, meanLSLabel, meanValidLabel,
+            varianceAccepGradesLabel, varianceAlphaLabel, varianceMeanLabel, varianceNLabel, varianceVarianceLabel, varianceAlphaMediosLabel, varianceUnoAlphaMediosLabell, varianceChiAlphaLabel, varianceChiUnoAplhaLabel, varianceLILabel, varianceLSLabel, varianceValidLabel;
 
 
     @FXML
@@ -221,7 +213,7 @@ public class FXMLController implements Initializable {
 
     }
 
-    private void disableLeftOptionsMeanSquares(boolean disable){
+    private void disableRightOptionsMeanSquares(boolean disable) {
 
     }
 
@@ -268,24 +260,55 @@ public class FXMLController implements Initializable {
         });
     }
 
-    public void goToTestMeans(ActionEvent event) {
-        switch(mainTabbedPanel.getSelectionModel().getSelectedIndex()){
-            case 0:listMeanTest.setItems(middleSquaresResult);break;
-            case 1:listMeanTest.setItems(congruentialLinealResult);break;
-            case 2:listMeanTest.setItems(congruentialMultiResult);break;
-            case 3:listMeanTest.setItems(middleSquaresResult);break;
-            default:break;
-        }
+    public void goToTestMeans() {
+        setResultsInListView(listMeanTest);
         mainTabbedPanel.getSelectionModel().select(4);
     }
 
-    public void goToTestVariance(ActionEvent event) {
-        VarianceTest varianceTest = new VarianceTest((ArrayList<Float>) Utils.convertDoubleToFloat(middleSquaresResult), 95);
-        System.out.println(varianceTest.toString());
-        System.out.println("Validos: " + varianceTest.isValid());
+    public void goToTestVariance() {
+        setResultsInListView(listVarianceTest);
+        mainTabbedPanel.getSelectionModel().select(5);
     }
 
-    public void goToTestKS(ActionEvent event) {
+    private void setResultsInListView(ListView<Double> list) {
+        switch (mainTabbedPanel.getSelectionModel().getSelectedIndex()) {
+            case 0:
+                list.setItems(middleSquaresResult);
+                break;
+            case 1:
+                list.setItems(congruentialLinealResult);
+                break;
+            case 2:
+                list.setItems(congruentialMultiResult);
+                break;
+            case 3:
+                list.setItems(middleSquaresResult);
+                break;
+            default:
+                break;
+        }
+    }
 
+    public void goToTestKS() {
+
+    }
+
+    public void testVariances(ActionEvent event) {
+        VarianceTest varianceTest = new VarianceTest(listVarianceTest.getItems(), (int) varianceAcceptGradesSlider.getValue());
+        boolean isValid = varianceTest.isValid();
+        varianceAccepGradesLabel.setText("" + varianceTest.getAcceptationGrade());
+        varianceAlphaLabel.setText("" + varianceTest.getErrorGrade());
+        varianceMeanLabel.setText("" + varianceTest.getAverage());
+        varianceNLabel.setText("" + varianceTest.getNumbersQuantity());
+        varianceVarianceLabel.setText("" + varianceTest.getVariance());
+        varianceAlphaMediosLabel.setText("" + varianceTest.getaMedios());
+        varianceUnoAlphaMediosLabell.setText("" + varianceTest.getUnoAMedios());
+        varianceChiAlphaLabel.setText("" + varianceTest.getChiSqaure1());
+        varianceChiUnoAplhaLabel.setText("" + varianceTest.getChiSqaure2());
+        varianceLILabel.setText("" + varianceTest.getLI());
+        varianceLSLabel.setText("" + varianceTest.getLS());
+
+        varianceValidLabel.setText(isValid ? "Válido" : "Inválido");
+        varianceValidLabel.setTextFill(isValid ? GUIUtils.OK_COLOR : GUIUtils.ERROR_COLOR);
     }
 }

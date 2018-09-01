@@ -31,7 +31,7 @@ public class OperationCongruenceMultiply {
      * este metodo permite calcular los Ui seg�n un datos Xi y el valor de m - 1, este valor se guarda en un vector
      */
     private void calculateUi(ObservableList<Double> doubles) {
-        this.Ui = (float) (this.Xi) / (multiply.getM() - 1);
+        this.Ui = (this.Xi) / (multiply.getM() - 1.0);
         doubles.add(Ui);
         listUi.add(Ui);
     }

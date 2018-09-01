@@ -32,7 +32,7 @@ class GUIUtils {
             field.setUnFocusColor(Color.BLACK);
             field.setEffect(null);
     }
-    
+
     public void setLabelAsOK(Label label){
         label.setTextFill(OK_COLOR);
     }

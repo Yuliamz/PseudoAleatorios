@@ -31,16 +31,16 @@ public class Utils {
         nums.forEach(e -> strings.add(e.toString()));
         return strings;
     }
-    
-    public static double[] convertFloatToDoubleArray(List<Float> nums) {
-        double[] ds = new double[nums.size()];
-        for (int i = 0; i < nums.size(); i++) ds[i] = Double.parseDouble(String.valueOf(nums.get(i)));
-        return ds;
-    }
 
     public static double[] convertStringToDoubleArray(List<String> nums) {
         double[] ds = new double[nums.size()];
         for (int i = 0; i < nums.size(); i++) ds[i] = Double.parseDouble(nums.get(i));
+        return ds;
+    }
+
+    public static double[] convertDoubleToDoubleArray(List<Double> nums) {
+        double[] ds = new double[nums.size()];
+        for (int i = 0; i < nums.size(); i++) ds[i] = ds[i] = nums.get(i);
         return ds;
     }
 

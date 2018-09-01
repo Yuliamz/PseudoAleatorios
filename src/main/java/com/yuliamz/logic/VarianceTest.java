@@ -3,7 +3,6 @@ package com.yuliamz.logic;
 import org.apache.commons.math3.distribution.ChiSquaredDistribution;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,12 +21,12 @@ public class VarianceTest {
     private final double chiSqaure2;
     private final double LS;
     private final double LI;
-    private final List<Float> list;
+    private final List<Double> list;
 
-    public VarianceTest(ArrayList<Float> numbers, int acceptationGrade) {
+    public VarianceTest(List<Double> numbers, int acceptationGrade) {
         this.list = numbers;
         this.numbersQuantity = list.size();
-        DescriptiveStatistics ds = new DescriptiveStatistics(Utils.convertFloatToDoubleArray(list));
+        DescriptiveStatistics ds = new DescriptiveStatistics(Utils.convertDoubleToDoubleArray(list));
         ChiSquaredDistribution chiSquaredDistribution = new ChiSquaredDistribution(this.numbersQuantity - 1);
         this.acceptationGrade = acceptationGrade;
         this.errorGrade = 100 - acceptationGrade;
@@ -42,7 +41,7 @@ public class VarianceTest {
     }
 
     public boolean isValid() {
-        return this.variance >= this.LI && this.variance <= this.LS;
+        return this.variance >= this.LS && this.variance <= this.LI;
     }
 
     @Override
@@ -63,5 +62,53 @@ public class VarianceTest {
         list.forEach(e -> sb.append(e).append(", "));
         sb.delete(sb.length() - 2, sb.length()).append("}");
         return sb.toString();
+    }
+
+    public int getAcceptationGrade() {
+        return acceptationGrade;
+    }
+
+    public int getErrorGrade() {
+        return errorGrade;
+    }
+
+    public double getAverage() {
+        return average;
+    }
+
+    public int getNumbersQuantity() {
+        return numbersQuantity;
+    }
+
+    public double getVariance() {
+        return variance;
+    }
+
+    public double getaMedios() {
+        return aMedios;
+    }
+
+    public double getUnoAMedios() {
+        return unoAMedios;
+    }
+
+    public double getChiSqaure1() {
+        return chiSqaure1;
+    }
+
+    public double getChiSqaure2() {
+        return chiSqaure2;
+    }
+
+    public double getLS() {
+        return LS;
+    }
+
+    public double getLI() {
+        return LI;
+    }
+
+    public List<Double> getList() {
+        return list;
     }
 }

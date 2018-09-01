@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXSlider?>
-<?import com.jfoenix.controls.JFXSpinner?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToggleButton?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <AnchorPane id="AnchorPane" prefHeight="535.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yuliamz.GUI.FXMLController">
     <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="1000.0" style="-fx-font-size: 14;">
         <Menu mnemonicParsing="false" text="Inicio">
@@ -92,17 +79,18 @@
                     </font>
                 </Label>
                 <Separator layoutX="680.0" layoutY="160.0" prefWidth="200.0" />
-                <Button fx:id="testMeansButton" layoutX="680.0" layoutY="166.0" mnemonicParsing="false" onAction="#goToTestMeans" text="Medias">
+                <Button layoutX="680.0" layoutY="166.0" mnemonicParsing="false" onAction="#goToTestMeans" text="Medias">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Button>
-                <Button fx:id="testVarianceButton" layoutX="756.0" layoutY="166.0" mnemonicParsing="false" onAction="#goToTestVariance" text="Varianza">
+                <Button layoutX="756.0" layoutY="166.0" mnemonicParsing="false" onAction="#goToTestVariance"
+                        text="Varianza">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Button>
-                <Button fx:id="testKSButton" layoutX="844.0" layoutY="166.0" mnemonicParsing="false" onAction="#goToTestKS" text="KS">
+                <Button layoutX="844.0" layoutY="166.0" mnemonicParsing="false" onAction="#goToTestKS" text="KS">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -154,6 +142,28 @@
                         <Font size="16.0" />
                     </font>
                 </Label>
+                <Label layoutX="682.0" layoutY="132.0" text="Realizar Pruebas">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+                <Separator layoutX="682.0" layoutY="161.0" prefWidth="200.0"/>
+                <Button layoutX="682.0" layoutY="171.0" mnemonicParsing="false" onAction="#goToTestMeans" text="Medias">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Button layoutX="760.0" layoutY="171.0" mnemonicParsing="false" onAction="#goToTestVariance"
+                        text="Varianza">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Button layoutX="848.0" layoutY="171.0" mnemonicParsing="false" onAction="#goToTestKS" text="KS">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
             </AnchorPane>
         </Tab>
         <Tab closable="false" text="Congruencial Multiplicativo">
@@ -215,7 +225,8 @@
             <children>
                <ListView fx:id="listMeanTest" layoutX="38.0" layoutY="20.0" prefHeight="430.0" prefWidth="189.0" />
                <JFXSlider fx:id="meanAcceptGradesSlider" layoutX="269.0" layoutY="57.0" majorTickUnit="5.0" minorTickCount="1" orientation="VERTICAL" prefHeight="394.0" prefWidth="80.0" showTickLabels="true" showTickMarks="true" style="-fx-font-size: 12;" value="95.0" />
-               <Button layoutX="404.0" layoutY="208.0" mnemonicParsing="false" onAction="#testMeans" text="Realizar prueba =&gt;">
+                <Button fx:id="doTestMeansButton" layoutX="404.0" layoutY="208.0" mnemonicParsing="false"
+                        onAction="#testMeans" text="Realizar prueba =&gt;">
                   <font>
                      <Font size="16.0" />
                   </font></Button>
@@ -315,9 +326,13 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <ListView layoutX="38.0" layoutY="20.0" prefHeight="430.0" prefWidth="189.0" />
-                  <JFXSlider layoutX="269.0" layoutY="57.0" majorTickUnit="5.0" minorTickCount="1" orientation="VERTICAL" prefHeight="394.0" prefWidth="80.0" showTickLabels="true" showTickMarks="true" style="-fx-font-size: 12;" value="95.0" />
-                  <Button layoutX="404.0" layoutY="208.0" mnemonicParsing="false" text="Realizar prueba =&gt;">
+                   <ListView fx:id="listVarianceTest" layoutX="38.0" layoutY="20.0" prefHeight="430.0"
+                             prefWidth="189.0"/>
+                   <JFXSlider fx:id="varianceAcceptGradesSlider" layoutX="269.0" layoutY="57.0" majorTickUnit="5.0"
+                              minorTickCount="1" orientation="VERTICAL" prefHeight="394.0" prefWidth="80.0"
+                              showTickLabels="true" showTickMarks="true" style="-fx-font-size: 12;" value="95.0"/>
+                   <Button layoutX="404.0" layoutY="208.0" mnemonicParsing="false" onAction="#testVariances"
+                           text="Realizar prueba =&gt;">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -367,47 +382,47 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="761.0" layoutY="20.0" text="0">
+                   <Label fx:id="varianceAccepGradesLabel" layoutX="761.0" layoutY="20.0" text="0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="761.0" layoutY="45.0" text="0">
+                   <Label fx:id="varianceAlphaLabel" layoutX="761.0" layoutY="45.0" text="0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="761.0" layoutY="70.0" text="0">
+                   <Label fx:id="varianceMeanLabel" layoutX="761.0" layoutY="70.0" text="0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="761.0" layoutY="95.0" text="0">
+                   <Label fx:id="varianceNLabel" layoutX="761.0" layoutY="95.0" text="0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="761.0" layoutY="170.0" text="0">
+                   <Label fx:id="varianceUnoAlphaMediosLabell" layoutX="761.0" layoutY="170.0" text="0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="761.0" layoutY="195.0" text="0">
+                   <Label fx:id="varianceChiAlphaLabel" layoutX="761.0" layoutY="195.0" text="0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="761.0" layoutY="245.0" text="0">
+                   <Label fx:id="varianceLILabel" layoutX="761.0" layoutY="245.0" text="0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="761.0" layoutY="270.0" text="0">
+                   <Label fx:id="varianceLSLabel" layoutX="761.0" layoutY="270.0" text="0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="721.0" layoutY="319.0" text="Validio?">
+                   <Label fx:id="varianceValidLabel" layoutX="721.0" layoutY="319.0" text="Validio?">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -417,7 +432,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="761.0" layoutY="120.0" text="0">
+                   <Label fx:id="varianceVarianceLabel" layoutX="761.0" layoutY="120.0" text="0">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -427,7 +442,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="761.0" layoutY="145.0" text="0">
+                   <Label fx:id="varianceAlphaMediosLabel" layoutX="761.0" layoutY="145.0" text="0">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -437,7 +452,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="761.0" layoutY="220.0" text="0">
+                   <Label fx:id="varianceChiUnoAplhaLabel" layoutX="761.0" layoutY="220.0" text="0">
                      <font>
                         <Font size="15.0" />
                      </font>
