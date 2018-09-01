@@ -15,26 +15,24 @@ public class MiddleSquares {
     private BigInteger seed;
     private int iterations;
     private int seedSize;
-    private ArrayList<BigInteger> numbers;
+    private ArrayList<BigInteger> extracts;
     private final int maxDigits;
 
     public MiddleSquares(BigInteger seed, int iterations) {
         this.seed = seed;
         this.iterations = iterations;
         this.seedSize = seed.toString().length();
-        this.numbers = new ArrayList<>();
+        this.extracts = new ArrayList<>();
         this.maxDigits = calcMaxDigits();
-
     }
 
     public MiddleSquares(BigInteger seed) {
         this.seed = seed;
         this.iterations = Integer.MAX_VALUE;
         this.seedSize = seed.toString().length();
-        this.numbers = new ArrayList<>();
+        this.extracts = new ArrayList<>();
         this.maxDigits = calcMaxDigits();
     }
-
 
     private BigInteger extract(BigInteger number) {
         StringBuilder num = new StringBuilder(number.toString());
@@ -45,17 +43,17 @@ public class MiddleSquares {
 
     public ArrayList<BigInteger> generate() {
         BigInteger result = extract(seed.pow(2));
-        numbers.add(new BigInteger(result.toString()));
+        extracts.add(new BigInteger(result.toString()));
         for (int i = 0; i < iterations - 1; i++) {
             result = extract(result.pow(2));
             if (result.equals(BigInteger.ZERO)) {
-                numbers.add(BigInteger.ZERO);
-                return numbers;
+                extracts.add(BigInteger.ZERO);
+                return extracts;
             }
-            if (numbers.contains(result)) return numbers;
-            numbers.add(new BigInteger(result.toString()));
+            if (extracts.contains(result)) return extracts;
+            extracts.add(new BigInteger(result.toString()));
         }
-        return numbers;
+        return extracts;
     }
 
     private String completeNumber(BigInteger value) {
@@ -64,21 +62,24 @@ public class MiddleSquares {
         return builder.toString();
     }
 
-    public void generateIn(ObservableList<String> list) {
-        BigInteger result = extract(seed.pow(2));
-        list.add(completeNumber(result));
+    public void generateIn(ObservableList<Double> list) {
+        extracts.clear();
+        BigInteger pow = seed.pow(2);
+        BigInteger extract = extract(pow);
+        String add = pow.toString();
+        Platform.runLater(() -> list.add(Double.parseDouble("0."+add)));
         for (int i = 0; i < iterations - 1; i++) {
-            result = extract(result.pow(2));
-            String add2 = completeNumber(result);
-            if (list.contains(add2)) break;
-            list.add(add2);
-//            Platform.runLater(() -> list.add(add2));
+            extract = extract(pow=extract.pow(2));
+            if (extracts.contains(extract)) break;
+            extracts.add(extract);
+            String s = pow.toString();
+            Platform.runLater(() -> list.add(Double.parseDouble("0."+s)));
         }
     }
 
-    private List<String> getFullNumbers() {
+    private List<String> getFullExtracts() {
         ArrayList<String> al = new ArrayList<>();
-        numbers.forEach(e -> al.add(completeNumber(e)));
+        extracts.forEach(e -> al.add(completeNumber(e)));
         return al;
     }
 
@@ -89,11 +90,11 @@ public class MiddleSquares {
     }
 
     public void printNumbers() {
-        numbers.forEach(e -> System.out.println(e.toString()));
+        extracts.forEach(e -> System.out.println(e.toString()));
     }
 
-    public void printFullNumbers() {
-        getFullNumbers().forEach(System.out::println);
+    public void printFullExtracts() {
+        getFullExtracts().forEach(System.out::println);
     }
 
     public BigInteger getSeed() {
@@ -120,12 +121,12 @@ public class MiddleSquares {
         this.seedSize = seedSize;
     }
 
-    public ArrayList<BigInteger> getNumbers() {
-        return numbers;
+    public ArrayList<BigInteger> getExtracts() {
+        return extracts;
     }
 
-    public void setNumbers(ArrayList<BigInteger> numbers) {
-        this.numbers = numbers;
+    public void setExtracts(ArrayList<BigInteger> extracts) {
+        this.extracts = extracts;
     }
-
+    
 }

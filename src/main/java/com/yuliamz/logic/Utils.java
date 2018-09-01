@@ -26,6 +26,13 @@ public class Utils {
         nums.forEach(e -> strings.add(String.valueOf(e)));
         return strings;
     }
+    public static List<String> convertDoubleToString(List<Double> nums) {
+        List<String> strings = new ArrayList<>();
+        nums.forEach(e -> strings.add(e.toString()));
+        return strings;
+    }
+    
+    
 
     public static double[] convertFloatToDouble(List<Float> nums) {
         double[] ds = new double[nums.size()];
@@ -48,6 +55,11 @@ public class Utils {
     public static List<Float> convertStringToFloat(List<String> nums) {
         List<Float> floats = new ArrayList<>();
         nums.forEach(e -> floats.add(Float.valueOf(e)));
+        return floats;
+    }
+    public static List<Float> convertDoubleToFloat(List<Double> nums) {
+        List<Float> floats = new ArrayList<>();
+        nums.forEach(e -> floats.add(e.floatValue()));
         return floats;
     }
 

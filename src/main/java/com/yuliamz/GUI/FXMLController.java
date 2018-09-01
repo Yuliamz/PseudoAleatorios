@@ -23,9 +23,9 @@ import java.util.ResourceBundle;
 public class FXMLController implements Initializable {
 
 
-    private ObservableList<String> middleSquaresResult;
+    private ObservableList<Double> middleSquaresResult;
     private ObservableList<Float> congruentialLinealResult, congruentialMultiResult;
-    private Thread threadMiddleSquaresExec;
+    private Thread threadMeanSquaresExec;
     private GUIUtils gui;
 
     @FXML
@@ -37,11 +37,11 @@ public class FXMLController implements Initializable {
     @FXML
     private JFXToggleButton infiniteGenerationToggle;
     @FXML
-    private JFXListView<String> numbersList;
+    private JFXListView<Double> numbersList;
     @FXML
     private ListView<Float> listNumbersConLineal, listNumbersConMulti;
     @FXML
-    private Button saveMiddleSquaresTxtButton, generateMiddleSquearesButton, stopMiddleSquearesButton, saveMiddleSquaresXlsButton, saveConLinealTxtButton, saveConLinealXlsButton, saveConMultiTxtButton, saveConMultiXlsButton;
+    private Button saveMiddleSquaresTxtButton, generateMiddleSquearesButton, stopMeanSquearesButton, saveMiddleSquaresXlsButton, saveConLinealTxtButton, saveConLinealXlsButton, saveConMultiTxtButton, saveConMultiXlsButton,testMeansButton,testVarianceButton,testKSButton;
 
     @FXML
     void saveConMultiTxt() {
@@ -65,12 +65,12 @@ public class FXMLController implements Initializable {
     
     @FXML
     void saveMiddleSquaresTxt() {
-        FileUtils.savePlainText(new ArrayList<>(middleSquaresResult), mainTabbedPanel.getScene().getWindow());
+        FileUtils.savePlainText(Utils.convertDoubleToString(new ArrayList<>(middleSquaresResult)), mainTabbedPanel.getScene().getWindow());
     }
 
     @FXML
     void saveMiddleSquaresXls() {
-        FileUtils.saveExcel(new ArrayList<>(middleSquaresResult), mainTabbedPanel.getScene().getWindow(),"Cuadrados Medios");
+        FileUtils.saveExcel(Utils.convertDoubleToString(new ArrayList<>(middleSquaresResult)), mainTabbedPanel.getScene().getWindow(),"Cuadrados Medios");
     }
 
     @FXML
@@ -138,7 +138,7 @@ public class FXMLController implements Initializable {
 
     private void disableAndEnabled() {
         loadingSpinner.setVisible(true);
-        stopMiddleSquearesButton.setVisible(true);
+        stopMeanSquearesButton.setVisible(true);
         saveMiddleSquaresTxtButton.setDisable(false);
         saveMiddleSquaresXlsButton.setDisable(false);
         generateMiddleSquearesButton.setDisable(true);
@@ -166,24 +166,24 @@ public class FXMLController implements Initializable {
         }
     }
 
-    private void startThreadMiddlleSquares(MiddleSquares middleSquares) {
+    private void startThreadMiddlleSquares(MiddleSquares meanSquares) {
         try {
-            threadMiddleSquaresExec = new Thread(() -> {
-                middleSquares.generateIn(middleSquaresResult);
+            threadMeanSquaresExec = new Thread(() -> {
+                meanSquares.generateIn(middleSquaresResult);
                 loadingSpinner.setVisible(false);
-                stopMiddleSquearesButton.setVisible(false);
+                stopMeanSquearesButton.setVisible(false);
                 generateMiddleSquearesButton.setDisable(false);
             });
-            threadMiddleSquaresExec.start();
+            threadMeanSquaresExec.start();
         } catch (IllegalStateException e) {
         }
     }
 
     @FXML
     void stopMiddleSqueares() {
-        threadMiddleSquaresExec.interrupt();
-        threadMiddleSquaresExec.stop();
-        stopMiddleSquearesButton.setVisible(false);
+        threadMeanSquaresExec.interrupt();
+        threadMeanSquaresExec.stop();
+        stopMeanSquearesButton.setVisible(false);
         loadingSpinner.setVisible(false);
         generateMiddleSquearesButton.setDisable(false);
     }
@@ -213,6 +213,10 @@ public class FXMLController implements Initializable {
 
     }
 
+    private void disableLeftOptionsMeanSquares(boolean disable){
+
+    }
+
     private void showAlertCantGenerate() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("No se pueden generar");
@@ -238,13 +242,13 @@ public class FXMLController implements Initializable {
     }
 
     public void testMeans(ActionEvent event) {
-        MeanTest meanTest = new MeanTest(Utils.convertStringToFloat(middleSquaresResult), 95);
+        MeanTest meanTest = new MeanTest(Utils.convertDoubleToFloat(middleSquaresResult), 95);
         System.out.println(meanTest.toString());
         System.out.println("Validos: " + meanTest.isValid());
     }
 
     public void testVariance(ActionEvent event) {
-        VarianceTest varianceTest = new VarianceTest((ArrayList<Float>) Utils.convertStringToFloat(middleSquaresResult), 95);
+        VarianceTest varianceTest = new VarianceTest((ArrayList<Float>) Utils.convertDoubleToFloat(middleSquaresResult), 95);
         System.out.println(varianceTest.toString());
         System.out.println("Validos: " + varianceTest.isValid());
     }
