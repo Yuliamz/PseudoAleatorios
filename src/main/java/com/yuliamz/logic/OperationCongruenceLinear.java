@@ -7,9 +7,9 @@ import java.util.ArrayList;
 public class OperationCongruenceLinear {
     private Congruence_linear congruence;
     private ArrayList<Integer> listXi;
-    private ArrayList<Float> listUi;
+    private ArrayList<Double> listUi;
     private int Xi;
-    private float Ui;
+    private double Ui;
 
 
     /**
@@ -35,19 +35,19 @@ public class OperationCongruenceLinear {
     /**
      * este metodo permite calcular los Ui seg�n un datos Xi y el valor de m - 1, este valor se guarda en un vector
      */
-    private void calculateUi(ObservableList<Float> floats) {
-        this.Ui = (float) (this.Xi) / (congruence.getM() - 1);
-        floats.add(Ui);
+    private void calculateUi(ObservableList<Double> doubles) {
+        this.Ui = (this.Xi) / (congruence.getM() - 1);
+        doubles.add(Ui);
         listUi.add(Ui);
     }
 
     /**
      * este metodo permite generar tantas iteraciones  de los metos de calcular Xi y Ui como deseee el usuario
      */
-    public void iteration(ObservableList<Float> floats) {
+    public void iteration(ObservableList<Double> doubles) {
         for (int i = 0; i < congruence.getIteration(); i++) {
             calculateModuloXi();
-            calculateUi(floats);
+            calculateUi(doubles);
         }
     }
 
@@ -73,11 +73,11 @@ public class OperationCongruenceLinear {
         this.listXi = listXi;
     }
 
-    public ArrayList<Float> getListUi() {
+    public ArrayList<Double> getListUi() {
         return listUi;
     }
 
-    public void setListUi(ArrayList<Float> listUi) {
+    public void setListUi(ArrayList<Double> listUi) {
         this.listUi = listUi;
     }
 

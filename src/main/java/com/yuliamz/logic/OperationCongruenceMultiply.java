@@ -7,9 +7,9 @@ import java.util.ArrayList;
 public class OperationCongruenceMultiply {
     private Congruence_Multiply multiply;
     private ArrayList<Integer> listXi;
-    private ArrayList<Float> listUi;
+    private ArrayList<Double> listUi;
     private int Xi;
-    private float Ui;
+    private double Ui;
 
     public OperationCongruenceMultiply(Congruence_Multiply multiply) {
         listUi = new ArrayList<>();
@@ -30,19 +30,19 @@ public class OperationCongruenceMultiply {
     /**
      * este metodo permite calcular los Ui seg�n un datos Xi y el valor de m - 1, este valor se guarda en un vector
      */
-    private void calculateUi(ObservableList<Float> floats) {
+    private void calculateUi(ObservableList<Double> doubles) {
         this.Ui = (float) (this.Xi) / (multiply.getM() - 1);
-        floats.add(Ui);
+        doubles.add(Ui);
         listUi.add(Ui);
     }
 
     /**
      * este metodo permite generar tantas iteraciones  de los metos de calcular Xi y Ui como deseee el usuario
      */
-    public void iteration(ObservableList<Float> floats) {
+    public void iteration(ObservableList<Double> doubles) {
         for (int i = 0; i < multiply.getIteration(); i++) {
             calculateModuloXi();
-            calculateUi(floats);
+            calculateUi(doubles);
         }
     }
 
@@ -67,12 +67,12 @@ public class OperationCongruenceMultiply {
     }
 
 
-    public ArrayList<Float> getListUi() {
+    public ArrayList<Double> getListUi() {
         return listUi;
     }
 
 
-    public void setListUi(ArrayList<Float> listUi) {
+    public void setListUi(ArrayList<Double> listUi) {
         this.listUi = listUi;
     }
 
@@ -87,12 +87,12 @@ public class OperationCongruenceMultiply {
     }
 
 
-    public float getUi() {
+    public double getUi() {
         return Ui;
     }
 
 
-    public void setUi(float ui) {
+    public void setUi(double ui) {
         Ui = ui;
     }
 

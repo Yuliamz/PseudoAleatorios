@@ -27,7 +27,7 @@ public class VarianceTest {
     public VarianceTest(ArrayList<Float> numbers, int acceptationGrade) {
         this.list = numbers;
         this.numbersQuantity = list.size();
-        DescriptiveStatistics ds = new DescriptiveStatistics(Utils.convertFloatToDouble(list));
+        DescriptiveStatistics ds = new DescriptiveStatistics(Utils.convertFloatToDoubleArray(list));
         ChiSquaredDistribution chiSquaredDistribution = new ChiSquaredDistribution(this.numbersQuantity - 1);
         this.acceptationGrade = acceptationGrade;
         this.errorGrade = 100 - acceptationGrade;

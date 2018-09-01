@@ -16,9 +16,9 @@ public class MeanTest {
     private final double Z;
     private final double LS;
     private final double LI;
-    private final List<Float> list;
+    private final List<Double> list;
 
-    public MeanTest(List<Float> numbers, int acceptationGrade) {
+    public MeanTest(List<Double> numbers, int acceptationGrade) {
         this.acceptationGrade=acceptationGrade;
         this.errorGrade=100-acceptationGrade;
         this.list=numbers;
@@ -50,6 +50,40 @@ public class MeanTest {
         sb.delete(sb.length() - 2, sb.length()).append("}");
         return sb.toString();
     }
-    
-    
+
+    public int getAcceptationGrade() {
+        return acceptationGrade;
+    }
+
+    public int getErrorGrade() {
+        return errorGrade;
+    }
+
+    public double getAverage() {
+        return average;
+    }
+
+    public int getNumbersQuantity() {
+        return numbersQuantity;
+    }
+
+    public double getaMedios() {
+        return aMedios;
+    }
+
+    public double getZ() {
+        return Z;
+    }
+
+    public double getLS() {
+        return LS;
+    }
+
+    public double getLI() {
+        return LI;
+    }
+
+    public List<Double> getList() {
+        return list;
+    }
 }

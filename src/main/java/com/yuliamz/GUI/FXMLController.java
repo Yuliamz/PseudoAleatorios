@@ -1,6 +1,7 @@
 package com.yuliamz.GUI;
 
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
@@ -19,12 +20,14 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Label;
 
 public class FXMLController implements Initializable {
 
 
-    private ObservableList<Double> middleSquaresResult;
-    private ObservableList<Float> congruentialLinealResult, congruentialMultiResult;
+    private ObservableList<Double> middleSquaresResult,congruentialLinealResult,congruentialMultiResult;
     private Thread threadMeanSquaresExec;
     private GUIUtils gui;
 
@@ -39,28 +42,33 @@ public class FXMLController implements Initializable {
     @FXML
     private JFXListView<Double> numbersList;
     @FXML
-    private ListView<Float> listNumbersConLineal, listNumbersConMulti;
+    private ListView<Double> listNumbersConLineal,listNumbersConMulti,listMeanTest;
     @FXML
     private Button saveMiddleSquaresTxtButton, generateMiddleSquearesButton, stopMeanSquearesButton, saveMiddleSquaresXlsButton, saveConLinealTxtButton, saveConLinealXlsButton, saveConMultiTxtButton, saveConMultiXlsButton,testMeansButton,testVarianceButton,testKSButton;
+    @FXML
+    private JFXSlider meanAcceptGradesSlider;
+    @FXML
+    private Label meanAcceptGradeLabel,meanAlphaLabel,meanMeanLabel,meanNLabel,meanOneAlphaLabel,meanZLabel,meanLILabel,meanLSLabel,meanValidLabel;
+
 
     @FXML
     void saveConMultiTxt() {
-        FileUtils.savePlainText(Utils.convertFloatToString(congruentialMultiResult), mainTabbedPanel.getScene().getWindow());
+        FileUtils.savePlainText(Utils.convertDoubleToString(congruentialMultiResult), mainTabbedPanel.getScene().getWindow());
     }
 
     @FXML
     void saveConMultiXls() {
-        FileUtils.saveExcel(Utils.convertFloatToString(congruentialMultiResult), mainTabbedPanel.getScene().getWindow(),"Congruencial Multiplicativo");
+        FileUtils.saveExcel(Utils.convertDoubleToString(congruentialMultiResult), mainTabbedPanel.getScene().getWindow(),"Congruencial Multiplicativo");
     }
 
     @FXML
     void saveConLinealTxt() {
-        FileUtils.savePlainText(Utils.convertFloatToString(congruentialLinealResult), mainTabbedPanel.getScene().getWindow());
+        FileUtils.savePlainText(Utils.convertDoubleToString(congruentialLinealResult), mainTabbedPanel.getScene().getWindow());
     }
 
     @FXML
     void saveConLinealXls() {
-        FileUtils.saveExcel(Utils.convertFloatToString(congruentialLinealResult), mainTabbedPanel.getScene().getWindow(),"Congruencial Lineal");
+        FileUtils.saveExcel(Utils.convertDoubleToString(congruentialLinealResult), mainTabbedPanel.getScene().getWindow(),"Congruencial Lineal");
     }
     
     @FXML
@@ -229,6 +237,22 @@ public class FXMLController implements Initializable {
     void switchIterations() {
         infiniteGenerationInput.setDisable(infiniteGenerationToggle.isSelected());
     }
+    
+     @FXML
+    void testMeans() {
+        MeanTest meanTest = new MeanTest(listMeanTest.getItems(), (int) meanAcceptGradesSlider.getValue());
+        boolean isValid = meanTest.isValid();
+        meanAcceptGradeLabel.setText(""+meanTest.getAcceptationGrade());
+        meanAlphaLabel.setText(""+meanTest.getErrorGrade());
+        meanMeanLabel.setText(""+meanTest.getAverage());
+        meanNLabel.setText(""+meanTest.getNumbersQuantity());
+        meanOneAlphaLabel.setText(""+meanTest.getaMedios());
+        meanZLabel.setText(""+meanTest.getZ());
+        meanLILabel.setText(""+meanTest.getLI());
+        meanLSLabel.setText(""+meanTest.getLS());
+        meanValidLabel.setText(isValid?"Válido":"Inválido");
+        meanValidLabel.setTextFill(isValid?GUIUtils.OK_COLOR:GUIUtils.ERROR_COLOR);
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -239,21 +263,29 @@ public class FXMLController implements Initializable {
         listNumbersConLineal.setItems(congruentialLinealResult);
         congruentialMultiResult = FXCollections.observableArrayList();
         listNumbersConMulti.setItems(congruentialMultiResult);
+        meanAcceptGradesSlider.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+            meanAcceptGradeLabel.setText(""+(int)newValue.doubleValue());
+        });
     }
 
-    public void testMeans(ActionEvent event) {
-        MeanTest meanTest = new MeanTest(Utils.convertDoubleToFloat(middleSquaresResult), 95);
-        System.out.println(meanTest.toString());
-        System.out.println("Validos: " + meanTest.isValid());
+    public void goToTestMeans(ActionEvent event) {
+        switch(mainTabbedPanel.getSelectionModel().getSelectedIndex()){
+            case 0:listMeanTest.setItems(middleSquaresResult);break;
+            case 1:listMeanTest.setItems(congruentialLinealResult);break;
+            case 2:listMeanTest.setItems(congruentialMultiResult);break;
+            case 3:listMeanTest.setItems(middleSquaresResult);break;
+            default:break;
+        }
+        mainTabbedPanel.getSelectionModel().select(4);
     }
 
-    public void testVariance(ActionEvent event) {
+    public void goToTestVariance(ActionEvent event) {
         VarianceTest varianceTest = new VarianceTest((ArrayList<Float>) Utils.convertDoubleToFloat(middleSquaresResult), 95);
         System.out.println(varianceTest.toString());
         System.out.println("Validos: " + varianceTest.isValid());
     }
 
-    public void testKS(ActionEvent event) {
+    public void goToTestKS(ActionEvent event) {
 
     }
 }

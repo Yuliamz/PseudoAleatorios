@@ -1,6 +1,7 @@
 package com.yuliamz.GUI;
 
 import com.jfoenix.controls.JFXTextField;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 
@@ -30,5 +31,13 @@ class GUIUtils {
             field.setFocusColor(OK_COLOR);
             field.setUnFocusColor(Color.BLACK);
             field.setEffect(null);
+    }
+    
+    public void setLabelAsOK(Label label){
+        label.setTextFill(OK_COLOR);
+    }
+    
+    public void setLabelAsError(Label label){
+        label.setTextFill(ERROR_COLOR);
     }
 }

@@ -92,17 +92,17 @@
                     </font>
                 </Label>
                 <Separator layoutX="680.0" layoutY="160.0" prefWidth="200.0" />
-                <Button fx:id="testMeansButton" layoutX="680.0" layoutY="166.0" mnemonicParsing="false" onAction="#testMeans" text="Medias">
+                <Button fx:id="testMeansButton" layoutX="680.0" layoutY="166.0" mnemonicParsing="false" onAction="#goToTestMeans" text="Medias">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Button>
-                <Button fx:id="testVarianceButton" layoutX="756.0" layoutY="166.0" mnemonicParsing="false" onAction="#testVariance" text="Varianza">
+                <Button fx:id="testVarianceButton" layoutX="756.0" layoutY="166.0" mnemonicParsing="false" onAction="#goToTestVariance" text="Varianza">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Button>
-                <Button fx:id="testKSButton" layoutX="844.0" layoutY="166.0" mnemonicParsing="false" onAction="#testKS" text="KS">
+                <Button fx:id="testKSButton" layoutX="844.0" layoutY="166.0" mnemonicParsing="false" onAction="#goToTestKS" text="KS">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -213,9 +213,9 @@
         <Tab text="Prueba de medias">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
             <children>
-               <ListView layoutX="38.0" layoutY="20.0" prefHeight="430.0" prefWidth="189.0" />
-               <JFXSlider layoutX="269.0" layoutY="57.0" majorTickUnit="5.0" minorTickCount="1" orientation="VERTICAL" prefHeight="394.0" prefWidth="80.0" showTickLabels="true" showTickMarks="true" style="-fx-font-size: 12;" value="95.0" />
-               <Button layoutX="404.0" layoutY="208.0" mnemonicParsing="false" text="Realizar prueba =&gt;">
+               <ListView fx:id="listMeanTest" layoutX="38.0" layoutY="20.0" prefHeight="430.0" prefWidth="189.0" />
+               <JFXSlider fx:id="meanAcceptGradesSlider" layoutX="269.0" layoutY="57.0" majorTickUnit="5.0" minorTickCount="1" orientation="VERTICAL" prefHeight="394.0" prefWidth="80.0" showTickLabels="true" showTickMarks="true" style="-fx-font-size: 12;" value="95.0" />
+               <Button layoutX="404.0" layoutY="208.0" mnemonicParsing="false" onAction="#testMeans" text="Realizar prueba =&gt;">
                   <font>
                      <Font size="16.0" />
                   </font></Button>
@@ -264,47 +264,47 @@
                      <Font size="15.0" />
                   </font>
                </Label>
-               <Label layoutX="761.0" layoutY="20.0" text="0">
+               <Label fx:id="meanAcceptGradeLabel" layoutX="761.0" layoutY="20.0" text="0">
                   <font>
                      <Font size="15.0" />
                   </font>
                </Label>
-               <Label layoutX="761.0" layoutY="47.0" text="0">
+               <Label fx:id="meanAlphaLabel" layoutX="761.0" layoutY="47.0" text="0">
                   <font>
                      <Font size="15.0" />
                   </font>
                </Label>
-               <Label layoutX="761.0" layoutY="76.0" text="0">
+               <Label fx:id="meanMeanLabel" layoutX="761.0" layoutY="76.0" text="0">
                   <font>
                      <Font size="15.0" />
                   </font>
                </Label>
-               <Label layoutX="761.0" layoutY="105.0" text="0">
+               <Label fx:id="meanNLabel" layoutX="761.0" layoutY="105.0" text="0">
                   <font>
                      <Font size="15.0" />
                   </font>
                </Label>
-               <Label layoutX="761.0" layoutY="132.0" text="0">
+               <Label fx:id="meanOneAlphaLabel" layoutX="761.0" layoutY="132.0" text="0">
                   <font>
                      <Font size="15.0" />
                   </font>
                </Label>
-               <Label layoutX="761.0" layoutY="164.0" text="0">
+               <Label fx:id="meanZLabel" layoutX="761.0" layoutY="164.0" text="0">
                   <font>
                      <Font size="15.0" />
                   </font>
                </Label>
-               <Label layoutX="761.0" layoutY="189.0" text="0">
+               <Label fx:id="meanLILabel" layoutX="761.0" layoutY="189.0" text="0">
                   <font>
                      <Font size="15.0" />
                   </font>
                </Label>
-               <Label layoutX="761.0" layoutY="216.0" text="0">
+               <Label fx:id="meanLSLabel" layoutX="761.0" layoutY="216.0" text="0">
                   <font>
                      <Font size="15.0" />
                   </font>
                </Label>
-               <Label layoutX="721.0" layoutY="319.0" text="Validio?">
+               <Label fx:id="meanValidLabel" layoutX="721.0" layoutY="319.0" text="Validio?">
                   <font>
                      <Font name="System Bold" size="24.0" />
                   </font>

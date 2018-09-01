@@ -32,15 +32,13 @@ public class Utils {
         return strings;
     }
     
-    
-
-    public static double[] convertFloatToDouble(List<Float> nums) {
+    public static double[] convertFloatToDoubleArray(List<Float> nums) {
         double[] ds = new double[nums.size()];
         for (int i = 0; i < nums.size(); i++) ds[i] = Double.parseDouble(String.valueOf(nums.get(i)));
         return ds;
     }
 
-    public static double[] convertStringToDouble(List<String> nums) {
+    public static double[] convertStringToDoubleArray(List<String> nums) {
         double[] ds = new double[nums.size()];
         for (int i = 0; i < nums.size(); i++) ds[i] = Double.parseDouble(nums.get(i));
         return ds;
@@ -56,6 +54,11 @@ public class Utils {
         List<Float> floats = new ArrayList<>();
         nums.forEach(e -> floats.add(Float.valueOf(e)));
         return floats;
+    }
+    public static List<Double> convertFloatToDouble(List<Float> nums) {
+        List<Double> doubles = new ArrayList<>();
+        nums.forEach(e -> doubles.add(e.doubleValue()));
+        return doubles;
     }
     public static List<Float> convertDoubleToFloat(List<Double> nums) {
         List<Float> floats = new ArrayList<>();
