@@ -9,6 +9,7 @@ class GUIUtils {
     static final DropShadow ERROR_GLOW = new DropShadow();
     static final Color ERROR_COLOR = Color.rgb(218, 3, 3);
     static final Color OK_COLOR = Color.rgb(0, 150, 136);
+    static final double ACCEPT_GRADES=95.0;
 
     protected GUIUtils() {
         createErrorGlow();
@@ -33,11 +34,4 @@ class GUIUtils {
             field.setEffect(null);
     }
 
-    public void setLabelAsOK(Label label){
-        label.setTextFill(OK_COLOR);
-    }
-    
-    public void setLabelAsError(Label label){
-        label.setTextFill(ERROR_COLOR);
-    }
 }

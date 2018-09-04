@@ -66,7 +66,7 @@ public class Utils {
         return floats;
     }
 
-    public static boolean isNumber(String num) {
+    private static boolean isNumber(String num) {
         if (num == null) return false;
         if (num.isEmpty()) return false;
         return num.chars().allMatch(Character::isDigit);

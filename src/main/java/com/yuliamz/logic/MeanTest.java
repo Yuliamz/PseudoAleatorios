@@ -83,7 +83,4 @@ public class MeanTest {
         return LI;
     }
 
-    public List<Double> getList() {
-        return list;
-    }
 }
