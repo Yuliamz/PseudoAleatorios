@@ -1,18 +1,15 @@
 package com.yuliamz.logic;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.stream.DoubleStream;
 
 public class OperationUniformDistribution {
+
     private int limitA;
     private int limitB;
     private int quantityNumber;
-ArrayList<Double> listNumber;
-ArrayList<Double> listNumberPseudo;
-
+    private ArrayList<Double> listNumber;
+    private ArrayList<Double> listNumberPseudo;
+    private boolean numFinded = false;
 
     public OperationUniformDistribution(int limitA, int limitB, int quantityNumber) {
         this.limitA = limitA;
@@ -22,20 +19,20 @@ ArrayList<Double> listNumberPseudo;
         listNumberPseudo = new ArrayList<>();
     }
 
-    public void generatePseudo(){
-        for (Double aDouble: this.listNumber
-             ) {
-            this.listNumberPseudo.add(limitA + ((limitB-limitA)*aDouble));
+    public void generatePseudo() {
+        for (Double aDouble : this.listNumber) {
+            this.listNumberPseudo.add(limitA + ((limitB - limitA) * aDouble));
         }
     }
 
     /**
      * metodo que permite generar numero pseudoaleatorios de manera uniforme
      */
-    public void generateNumber(){
-        for (int i = 0; i < quantityNumber; i++) {
-            double random = Math.random();
-            listNumber.add(random);
+    public void generateNumber() {
+        while (!numFinded) {
+            listNumber.clear();
+            for (int i = 0; i < quantityNumber; i++) listNumber.add(Math.random());
+            numFinded = TestUtils.passAllTests(listNumber, 95);
         }
     }
 
@@ -78,6 +75,5 @@ ArrayList<Double> listNumberPseudo;
     public void setLimitB(int limitB) {
         this.limitB = limitB;
     }
-
 
 }

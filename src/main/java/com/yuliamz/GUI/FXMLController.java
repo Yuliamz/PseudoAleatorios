@@ -8,7 +8,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 
 import java.math.BigInteger;
 import java.net.URL;
@@ -17,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class FXMLController implements Initializable {
 
-    private ObservableList<Double> middleSquaresResult,congruentialLinealResult,congruentialMultiResult,uniformDistriResult,uniformDistriInput;
+    private ObservableList<Double> middleSquaresResult, congruentialLinealResult, congruentialMultiResult, uniformDistriResult, uniformDistriInput;
     private Thread threadMeanSquaresExec;
     private GUIUtils gui;
 
@@ -26,21 +31,23 @@ public class FXMLController implements Initializable {
     @FXML
     private JFXSpinner loadingSpinner;
     @FXML
-    private JFXTextField seedTextField, infiniteGenerationInput, xoInput, xoInputM, aInput, aInputM, bInput, mInput, mInputM, iterationsInput, iterationsInputM,maxInput,minInput,iterationsUniformDistributionInput;
+    private JFXTextField seedTextField, infiniteGenerationInput, xoInput, xoInputM, aInput, aInputM, bInput, mInput, mInputM, iterationsInput, iterationsInputM, maxInput, minInput, iterationsUniformDistributionInput;
     @FXML
     private JFXToggleButton infiniteGenerationToggle;
     @FXML
     private JFXListView<Double> numbersList;
     @FXML
-    private ListView<Double> listNumbersConLineal, listNumbersConMulti, listMeanTest, listVarianceTest, listNiUniformDistribution, listRiUniformDistribution,listKSTest;
+    private ListView<Double> listNumbersConLineal, listNumbersConMulti, listMeanTest, listVarianceTest, listNiUniformDistribution, listRiUniformDistribution, listKSTest;
     @FXML
-    private Button saveMiddleSquaresTxtButton, generateMiddleSquearesButton, stopMeanSquearesButton, saveMiddleSquaresXlsButton, saveConLinealTxtButton, saveConLinealXlsButton, saveConMultiTxtButton, saveConMultiXlsButton, testMeansButton, testVarianceButton, testKSButton, doTestMeansButton,generateUniformDistribution,saveUniformDistriXlsButton,loadNumbersUniformDistribution,saveUniformDistriTxtButton;
+    private Button saveMiddleSquaresTxtButton, generateMiddleSquearesButton, stopMeanSquearesButton, saveMiddleSquaresXlsButton, saveConLinealTxtButton, saveConLinealXlsButton, saveConMultiTxtButton, saveConMultiXlsButton, testMeansButton, testVarianceButton, testKSButton, doTestMeansButton, generateUniformDistribution, saveUniformDistriXlsButton, loadNumbersUniformDistribution, saveUniformDistriTxtButton;
     @FXML
-    private JFXSlider meanAcceptGradesSlider, varianceAcceptGradesSlider,KSAcceptGradesSlider;
+    private JFXSlider meanAcceptGradesSlider, varianceAcceptGradesSlider, KSAcceptGradesSlider;
     @FXML
     private Label meanAcceptGradeLabel, meanAlphaLabel, meanMeanLabel, meanNLabel, meanOneAlphaLabel, meanZLabel, meanLILabel, meanLSLabel, meanValidLabel,
             varianceAccepGradesLabel, varianceAlphaLabel, varianceMeanLabel, varianceNLabel, varianceVarianceLabel, varianceAlphaMediosLabel, varianceUnoAlphaMediosLabell, varianceChiAlphaLabel, varianceChiUnoAplhaLabel, varianceLILabel, varianceLSLabel, varianceValidLabel,
-            ksAcceptationGradesLabel,ksAlphaLabel,ksMeanLabel,ksNLabel,ksMinLabel,ksMaxLabel,ksDmaxLabel,ksDmaxPLabel,KsValidLabel;
+            ksAcceptationGradesLabel, ksAlphaLabel, ksMeanLabel, ksNLabel, ksMinLabel, ksMaxLabel, ksDmaxLabel, ksDmaxPLabel, KsValidLabel;
+    @FXML
+    private BarChart<String, Number> histograma;
 
 
     @FXML
@@ -50,7 +57,7 @@ public class FXMLController implements Initializable {
 
     @FXML
     void saveConMultiXls() {
-        FileUtils.saveExcel(Utils.convertDoubleToString(congruentialMultiResult), mainTabbedPanel.getScene().getWindow(),"Congruencial Multiplicativo");
+        FileUtils.saveExcel(Utils.convertDoubleToString(congruentialMultiResult), mainTabbedPanel.getScene().getWindow(), "Congruencial Multiplicativo");
     }
 
     @FXML
@@ -60,9 +67,9 @@ public class FXMLController implements Initializable {
 
     @FXML
     void saveConLinealXls() {
-        FileUtils.saveExcel(Utils.convertDoubleToString(congruentialLinealResult), mainTabbedPanel.getScene().getWindow(),"Congruencial Lineal");
+        FileUtils.saveExcel(Utils.convertDoubleToString(congruentialLinealResult), mainTabbedPanel.getScene().getWindow(), "Congruencial Lineal");
     }
-    
+
     @FXML
     void saveMiddleSquaresTxt() {
         FileUtils.savePlainText(Utils.convertDoubleToString(new ArrayList<>(middleSquaresResult)), mainTabbedPanel.getScene().getWindow());
@@ -70,15 +77,17 @@ public class FXMLController implements Initializable {
 
     @FXML
     void saveMiddleSquaresXls() {
-        FileUtils.saveExcel(Utils.convertDoubleToString(new ArrayList<>(middleSquaresResult)), mainTabbedPanel.getScene().getWindow(),"Cuadrados Medios");
+        FileUtils.saveExcel(Utils.convertDoubleToString(new ArrayList<>(middleSquaresResult)), mainTabbedPanel.getScene().getWindow(), "Cuadrados Medios");
     }
+
     @FXML
     void saveUniformDistriTxt() {
         FileUtils.savePlainText(Utils.convertDoubleToString(new ArrayList<>(uniformDistriResult)), mainTabbedPanel.getScene().getWindow());
     }
+
     @FXML
     void saveUniformDistriXls() {
-        FileUtils.saveExcel(Utils.convertDoubleToString(new ArrayList<>(uniformDistriResult)), mainTabbedPanel.getScene().getWindow(),"Distribución Uniforme");
+        FileUtils.saveExcel(Utils.convertDoubleToString(new ArrayList<>(uniformDistriResult)), mainTabbedPanel.getScene().getWindow(), "Distribución Uniforme");
     }
 
     @FXML
@@ -195,23 +204,24 @@ public class FXMLController implements Initializable {
         loadingSpinner.setVisible(false);
         generateMiddleSquearesButton.setDisable(false);
     }
+
     @FXML
-    void generateUniformDistribution(ActionEvent event) {
+    void generateUniformDistribution() {
+        uniformDistriResult.clear();
+        uniformDistriInput.clear();
         OperationUniformDistribution operationUniformDistribution = new OperationUniformDistribution(
                 Integer.parseInt(minInput.getText()),
                 Integer.parseInt(maxInput.getText()),
                 Integer.parseInt(iterationsUniformDistributionInput.getText()));
-
+        operationUniformDistribution.generateNumber();
+        uniformDistriInput.addAll(operationUniformDistribution.getListNumber());
+        operationUniformDistribution.generatePseudo();
+        uniformDistriResult.addAll(operationUniformDistribution.getListNumberPseudo());
     }
-    
+
     @FXML
     void goToMiddleSquaresTab() {
         mainTabbedPanel.getSelectionModel().select(0);
-    }
-
-    @FXML
-    void goToUniformTab() {
-        mainTabbedPanel.getSelectionModel().select(3);
     }
 
     @FXML
@@ -225,11 +235,34 @@ public class FXMLController implements Initializable {
     }
 
     @FXML
-    void openAbout() {
-
+    void goToUniformTab() {
+        mainTabbedPanel.getSelectionModel().select(3);
     }
 
-    private void disableRightOptionsMeanSquares(boolean disable) {
+    @FXML
+    void goToTestMeans() {
+        cleanMeanTest();
+        setResultsInListView(listMeanTest);
+        mainTabbedPanel.getSelectionModel().select(4);
+    }
+
+    @FXML
+    void goToTestVariance() {
+        cleanVarianceTest();
+        setResultsInListView(listVarianceTest);
+        mainTabbedPanel.getSelectionModel().select(5);
+    }
+
+    @FXML
+    void goToTestKS() {
+        cleanKSTest();
+        setResultsInListView(listKSTest);
+        mainTabbedPanel.getSelectionModel().select(6);
+    }
+
+
+    @FXML
+    void openAbout() {
 
     }
 
@@ -245,52 +278,43 @@ public class FXMLController implements Initializable {
     void switchIterations() {
         infiniteGenerationInput.setDisable(infiniteGenerationToggle.isSelected());
     }
-    
-     @FXML
+
+    @FXML
     void testMeans() {
         MeanTest meanTest = new MeanTest(listMeanTest.getItems(), (int) meanAcceptGradesSlider.getValue());
         boolean isValid = meanTest.isValid();
-        meanAcceptGradeLabel.setText(""+meanTest.getAcceptationGrade());
-        meanAlphaLabel.setText(""+meanTest.getErrorGrade());
-        meanMeanLabel.setText(""+meanTest.getAverage());
-        meanNLabel.setText(""+meanTest.getNumbersQuantity());
-        meanOneAlphaLabel.setText(""+meanTest.getaMedios());
-        meanZLabel.setText(""+meanTest.getZ());
-        meanLILabel.setText(""+meanTest.getLI());
-        meanLSLabel.setText(""+meanTest.getLS());
-        meanValidLabel.setText(isValid?"Válido":"Inválido");
-        meanValidLabel.setTextFill(isValid?GUIUtils.OK_COLOR:GUIUtils.ERROR_COLOR);
-    }
-   
-    public void goToTestMeans() {
-        cleanMeanTest();
-        setResultsInListView(listMeanTest);
-        mainTabbedPanel.getSelectionModel().select(4);
-    }
-
-    public void goToTestVariance() {
-        cleanVarianceTest();
-        setResultsInListView(listVarianceTest);
-        mainTabbedPanel.getSelectionModel().select(5);
+        meanAcceptGradeLabel.setText("" + meanTest.getAcceptationGrade());
+        meanAlphaLabel.setText("" + meanTest.getErrorGrade());
+        meanMeanLabel.setText("" + meanTest.getAverage());
+        meanNLabel.setText("" + meanTest.getNumbersQuantity());
+        meanOneAlphaLabel.setText("" + meanTest.getaMedios());
+        meanZLabel.setText("" + meanTest.getZ());
+        meanLILabel.setText("" + meanTest.getLI());
+        meanLSLabel.setText("" + meanTest.getLS());
+        meanValidLabel.setText(isValid ? "Válido" : "Inválido");
+        meanValidLabel.setTextFill(isValid ? GUIUtils.OK_COLOR : GUIUtils.ERROR_COLOR);
     }
 
     private void setResultsInListView(ListView<Double> list) {
         switch (mainTabbedPanel.getSelectionModel().getSelectedIndex()) {
-            case 0:list.setItems(middleSquaresResult);break;
-            case 1:list.setItems(congruentialLinealResult);break;
-            case 2:list.setItems(congruentialMultiResult);break;
-            case 3:list.setItems(middleSquaresResult);break;
-            default:break;
+            case 0:
+                list.setItems(middleSquaresResult);
+                break;
+            case 1:
+                list.setItems(congruentialLinealResult);
+                break;
+            case 2:
+                list.setItems(congruentialMultiResult);
+                break;
+            case 3:
+                list.setItems(middleSquaresResult);
+                break;
+            default:
+                break;
         }
     }
 
-    public void goToTestKS() {
-        cleanKSTest();
-        setResultsInListView(listKSTest);
-        mainTabbedPanel.getSelectionModel().select(6);
-    }
-
-    public void testVariances(ActionEvent event) {
+    public void testVariances() {
         VarianceTest varianceTest = new VarianceTest(listVarianceTest.getItems(), (int) varianceAcceptGradesSlider.getValue());
         boolean isValid = varianceTest.isValid();
         varianceAccepGradesLabel.setText("" + varianceTest.getAcceptationGrade());
@@ -308,9 +332,9 @@ public class FXMLController implements Initializable {
         varianceValidLabel.setText(isValid ? "Válido" : "Inválido");
         varianceValidLabel.setTextFill(isValid ? GUIUtils.OK_COLOR : GUIUtils.ERROR_COLOR);
     }
-    
-        public void testKS(ActionEvent event) {
-        KolmogorovSmirnov ks= new KolmogorovSmirnov((int)KSAcceptGradesSlider.getValue(), listKSTest.getItems());
+
+    public void testKS(ActionEvent event) {
+        KolmogorovSmirnov ks = new KolmogorovSmirnov((int) KSAcceptGradesSlider.getValue(), listKSTest.getItems());
         ks.calculateFinalValue();
         ks.calculateFrequency();
         ks.calculateFrequencyAcumulated();
@@ -321,23 +345,37 @@ public class FXMLController implements Initializable {
         ks.calculatedDMAX();
         ks.calculatedDMAXP();
         boolean isValid = ks.isPseudo();
-        ksAcceptationGradesLabel.setText(""+ks.getAceptatio());
-        ksAlphaLabel.setText(""+ks.getAlpha());
-        ksMeanLabel.setText(""+ks.getMedium());
-        ksNLabel.setText(""+ks.getNumbersAmount());
-        ksMaxLabel.setText(""+ks.getMAX());
-        ksMinLabel.setText(""+ks.getMIN());
-        ksDmaxLabel.setText(""+ks.calculatedDMAX());
-        ksDmaxPLabel.setText(""+ks.calculatedDMAXP());
-        
+        ksAcceptationGradesLabel.setText("" + ks.getAceptatio());
+        ksAlphaLabel.setText("" + ks.getAlpha());
+        ksMeanLabel.setText("" + ks.getMedium());
+        ksNLabel.setText("" + ks.getNumbersAmount());
+        ksMaxLabel.setText("" + ks.getMAX());
+        ksMinLabel.setText("" + ks.getMIN());
+        ksDmaxLabel.setText("" + ks.calculatedDMAX());
+        ksDmaxPLabel.setText("" + ks.calculatedDMAXP());
+
         KsValidLabel.setText(isValid ? "Válido" : "Inválido");
         KsValidLabel.setTextFill(isValid ? GUIUtils.OK_COLOR : GUIUtils.ERROR_COLOR);
+
+        XYChart.Series<String, Number> intervalos = new XYChart.Series<>();
+        intervalos.setName("intervalos");
+
+        for (int i = 0; i < ks.getListInterval().size(); i++) {
+            intervalos.getData().add(new XYChart.Data<>("" + i, ks.getListInterval().get(i).getFrequencyGet()));
+        }
+        histograma.getData().add(intervalos);
+//        for (int i = 0; i < histograma.getData().get(0).getData().size(); i++) {
+//            displayLabelForData(histograma.getData().get(0).getData().get(i));
+//        }
+
+        histograma.getData().get(0).getData().forEach(this::displayLabelForData);
+        histograma.setVisible(true);
     }
 
-    private void cleanMeanTest(){
+    private void cleanMeanTest() {
         listMeanTest.setItems(null);
         meanAcceptGradesSlider.setValue(GUIUtils.ACCEPT_GRADES);
-        meanAcceptGradeLabel.setText(""+GUIUtils.ACCEPT_GRADES);
+        meanAcceptGradeLabel.setText("" + GUIUtils.ACCEPT_GRADES);
         meanAlphaLabel.setText("");
         meanMeanLabel.setText("");
         meanNLabel.setText("");
@@ -348,10 +386,10 @@ public class FXMLController implements Initializable {
         meanValidLabel.setText("");
     }
 
-    private void cleanVarianceTest(){
+    private void cleanVarianceTest() {
         listVarianceTest.setItems(null);
         varianceAcceptGradesSlider.setValue(GUIUtils.ACCEPT_GRADES);
-        varianceAccepGradesLabel.setText(""+GUIUtils.ACCEPT_GRADES);
+        varianceAccepGradesLabel.setText("" + GUIUtils.ACCEPT_GRADES);
         varianceAlphaLabel.setText("");
         varianceMeanLabel.setText("");
         varianceNLabel.setText("");
@@ -364,10 +402,10 @@ public class FXMLController implements Initializable {
         varianceLSLabel.setText("");
         varianceValidLabel.setText("");
     }
-    
-    void cleanKSTest(){
+
+    private void cleanKSTest() {
         listKSTest.setItems(null);
-        ksAcceptationGradesLabel.setText(""+GUIUtils.ACCEPT_GRADES);
+        ksAcceptationGradesLabel.setText("" + GUIUtils.ACCEPT_GRADES);
         KSAcceptGradesSlider.setValue(GUIUtils.ACCEPT_GRADES);
         ksAlphaLabel.setText("");
         ksMeanLabel.setText("");
@@ -377,27 +415,40 @@ public class FXMLController implements Initializable {
         ksDmaxLabel.setText("");
         ksDmaxPLabel.setText("");
         KsValidLabel.setText("");
+        histograma.setVisible(false);
     }
-    
+
+    private void displayLabelForData(XYChart.Data<String, Number> data) {
+        final Node node = data.getNode();
+        Tooltip.install(node, new Tooltip(data.getYValue().intValue() + ""));
+        final Text dataText = new Text(data.getYValue().intValue() + "");
+        node.parentProperty().addListener((ov, oldParent, parent) -> {
+            Group parentGroup = (Group) parent;
+            parentGroup.getChildren().add(dataText);
+        });
+
+        node.boundsInParentProperty().addListener((ov, oldBounds, bounds) -> {
+            dataText.setLayoutX(Math.round(bounds.getMinX() + bounds.getWidth() / 2 - dataText.prefWidth(-1) / 2));
+            dataText.setLayoutY(Math.round(bounds.getMinY() - dataText.prefHeight(-1) * 0.5));
+        });
+    }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        gui= new GUIUtils();
+        gui = new GUIUtils();
         middleSquaresResult = FXCollections.observableArrayList();
         numbersList.setItems(middleSquaresResult);
         congruentialLinealResult = FXCollections.observableArrayList();
         listNumbersConLineal.setItems(congruentialLinealResult);
         congruentialMultiResult = FXCollections.observableArrayList();
         listNumbersConMulti.setItems(congruentialMultiResult);
-        uniformDistriInput=FXCollections.observableArrayList();
+        uniformDistriInput = FXCollections.observableArrayList();
         listRiUniformDistribution.setItems(uniformDistriInput);
-        uniformDistriResult=FXCollections.observableArrayList();
+        uniformDistriResult = FXCollections.observableArrayList();
         listNiUniformDistribution.setItems(uniformDistriResult);
-        meanAcceptGradesSlider.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> meanAcceptGradeLabel.setText(""+(int)newValue.doubleValue()));
-        varianceAcceptGradesSlider.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> varianceAccepGradesLabel.setText(""+(int)newValue.doubleValue()));
-        KSAcceptGradesSlider.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> ksAcceptationGradesLabel.setText(""+(int)newValue.doubleValue()));
-    }
-
-    public void loadNumbersUniformDistribution(ActionEvent event) {
-
+        meanAcceptGradesSlider.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> meanAcceptGradeLabel.setText("" + (int) newValue.doubleValue()));
+        varianceAcceptGradesSlider.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> varianceAccepGradesLabel.setText("" + (int) newValue.doubleValue()));
+        KSAcceptGradesSlider.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> ksAcceptationGradesLabel.setText("" + (int) newValue.doubleValue()));
     }
 }
