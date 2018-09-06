@@ -1,12 +1,20 @@
 package com.yuliamz.logic;
 
-public class Congruence_Multiply {
+public class CongruenceMultiply {
     private int a;
     private int m;
     private int Xo;
     private int iteration;
 
-    public Congruence_Multiply(int a, int m, int xo, int iteration) {
+    /**
+     * constructor
+     *
+     * @param a
+     * @param m
+     * @param xo
+     * @param iteration
+     */
+    public CongruenceMultiply(int a, int m, int xo, int iteration) {
         super();
         this.a = a;
         this.m = m;

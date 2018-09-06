@@ -12,7 +12,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 class FileUtils {
-
+    /**
+     * Guarda una lista de números como archivo de texto plano
+     *
+     * @param numbers lista de números a guardar
+     * @param window  Ventana principal de la aplicación que se toma como parent para el FileChooser
+     */
     public static void savePlainText(List<String> numbers, Window window) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt"));
@@ -20,6 +25,12 @@ class FileUtils {
         writeAsPlainText(numbers, file);
     }
 
+    /**
+     * Guarda una lista de números como un archivo correspondiente a una hoja de excel
+     * @param numbers lista de números a guardar
+     * @param window Ventana principal de la aplicación que se toma como parent para el FileChooser
+     * @param sheetName Nombre de la hoja de excel
+     */
     public static void saveExcel(List<String> numbers, Window window,String sheetName) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel files (*.xlsx)", "*.xlsx"));
@@ -27,6 +38,11 @@ class FileUtils {
         writeAsExcel(numbers, file,sheetName);
     }
 
+    /**
+     * Escribe una lista de Strings en el archivo especificado
+     * @param numbers Lista de números a guardar
+     * @param file Archivo a escribir
+     */
     private static void writeAsPlainText(List<String> numbers, File file) {
         if (file != null) {
             StringBuilder builder = new StringBuilder();
@@ -40,6 +56,13 @@ class FileUtils {
         }
     }
 
+    /**
+     *
+     * Escribe una lista de Strings en el archivo especificado
+     * @param numbers Lista de números a guardar
+     * @param file Archivo a escribir
+     * @param sheetName Nombre de la hoja de excel
+     */
     private static void writeAsExcel(List<String> numbers, File file,String sheetName) {
         if (file != null) {
 

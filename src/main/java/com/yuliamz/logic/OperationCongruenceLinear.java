@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 
 public class OperationCongruenceLinear {
-    private Congruence_linear congruence;
+    private CongruenceLinear congruence;
     private ArrayList<Integer> listXi;
     private ArrayList<Double> listUi;
     private int Xi;
@@ -17,7 +17,7 @@ public class OperationCongruenceLinear {
      *
      * @param congruence_linear
      */
-    public OperationCongruenceLinear(Congruence_linear congruence_linear) {
+    public OperationCongruenceLinear(CongruenceLinear congruence_linear) {
         this.congruence = congruence_linear;
         this.Xi = congruence_linear.getXo();
         listUi = new ArrayList<>();
@@ -57,11 +57,11 @@ public class OperationCongruenceLinear {
      *
      * @return
      */
-    public Congruence_linear getCongruence() {
+    public CongruenceLinear getCongruence() {
         return congruence;
     }
 
-    public void setCongruence(Congruence_linear congruence) {
+    public void setCongruence(CongruenceLinear congruence) {
         this.congruence = congruence;
     }
 

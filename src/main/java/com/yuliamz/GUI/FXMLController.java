@@ -5,15 +5,11 @@ import com.yuliamz.logic.*;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.text.Text;
 
 import java.math.BigInteger;
 import java.net.URL;
@@ -49,51 +45,77 @@ public class FXMLController implements Initializable {
     @FXML
     private BarChart<String, Number> histograma;
 
-
+    /**
+     * Guarda la lista de números generados con congruencia multiplicativa como texto plano
+     */
     @FXML
     void saveConMultiTxt() {
         FileUtils.savePlainText(Utils.convertDoubleToString(congruentialMultiResult), mainTabbedPanel.getScene().getWindow());
     }
 
+    /**
+     * Guarda la lista de números generados con congruencia multiplicativa como una hoja de excel
+     */
     @FXML
     void saveConMultiXls() {
         FileUtils.saveExcel(Utils.convertDoubleToString(congruentialMultiResult), mainTabbedPanel.getScene().getWindow(), "Congruencial Multiplicativo");
     }
 
+    /**
+     * Guarda la lista de números generados con congruencia lineal como texto plano
+     */
     @FXML
     void saveConLinealTxt() {
         FileUtils.savePlainText(Utils.convertDoubleToString(congruentialLinealResult), mainTabbedPanel.getScene().getWindow());
     }
 
+    /**
+     * Guarda la lista de números generados con congruencia lineal como hoja de excel
+     */
     @FXML
     void saveConLinealXls() {
         FileUtils.saveExcel(Utils.convertDoubleToString(congruentialLinealResult), mainTabbedPanel.getScene().getWindow(), "Congruencial Lineal");
     }
 
+    /**
+     * Guarda la lista de números generados con cuadrados medios como texto plano
+     */
     @FXML
     void saveMiddleSquaresTxt() {
         FileUtils.savePlainText(Utils.convertDoubleToString(new ArrayList<>(middleSquaresResult)), mainTabbedPanel.getScene().getWindow());
     }
 
+    /**
+     * Guarda la lista de números generados con cuadrados medios como una hoja de excel
+     */
     @FXML
     void saveMiddleSquaresXls() {
         FileUtils.saveExcel(Utils.convertDoubleToString(new ArrayList<>(middleSquaresResult)), mainTabbedPanel.getScene().getWindow(), "Cuadrados Medios");
     }
 
+    /**
+     * Guarda la lista de números generados con Distribución uniforme como texto plano
+     */
     @FXML
     void saveUniformDistriTxt() {
         FileUtils.savePlainText(Utils.convertDoubleToString(new ArrayList<>(uniformDistriResult)), mainTabbedPanel.getScene().getWindow());
     }
 
+    /**
+     * Guarda la lista de números generados con Distribución uniforme como una hoja de excel
+     */
     @FXML
     void saveUniformDistriXls() {
         FileUtils.saveExcel(Utils.convertDoubleToString(new ArrayList<>(uniformDistriResult)), mainTabbedPanel.getScene().getWindow(), "Distribución Uniforme");
     }
 
+    /**
+     * Inicia la generación de números con el método de congruencia lineal
+     */
     @FXML
     void generateCongruenLineal() {
         congruentialLinealResult.clear();
-        OperationCongruenceLinear linear = new OperationCongruenceLinear(new Congruence_linear(
+        OperationCongruenceLinear linear = new OperationCongruenceLinear(new CongruenceLinear(
                 Integer.parseInt(aInput.getText()),
                 Integer.parseInt(bInput.getText()),
                 Integer.parseInt(mInput.getText()),
@@ -105,10 +127,13 @@ public class FXMLController implements Initializable {
         saveConLinealXlsButton.setDisable(false);
     }
 
+    /**
+     * Inicia la generación de números con el método de congruencia multiplicativa
+     */
     @FXML
     void generateCongruenMulti() {
         congruentialMultiResult.clear();
-        OperationCongruenceMultiply multiply = new OperationCongruenceMultiply(new Congruence_Multiply(
+        OperationCongruenceMultiply multiply = new OperationCongruenceMultiply(new CongruenceMultiply(
                 Integer.parseInt(aInputM.getText()),
                 Integer.parseInt(mInputM.getText()),
                 Integer.parseInt(xoInputM.getText()),
@@ -119,6 +144,9 @@ public class FXMLController implements Initializable {
         saveConMultiXlsButton.setDisable(false);
     }
 
+    /**
+     * Verifíca si el número de iteraciones es una cantidad válida
+     */
     @FXML
     void checkInfiniteGenerationInput() {
         if (!Utils.isValidIterationsNumber(infiniteGenerationInput.getText())) {
@@ -128,6 +156,9 @@ public class FXMLController implements Initializable {
         }
     }
 
+    /**
+     * Verifíca si la semilla es una cantidad válida
+     */
     @FXML
     void checkSeedInput() {
         if (!Utils.isValidSeed(seedTextField.getText())) {
@@ -137,11 +168,17 @@ public class FXMLController implements Initializable {
         }
     }
 
+    /**
+     * Sale del software
+     */
     @FXML
     void exit() {
         System.exit(0);
     }
 
+    /**
+     * Limpia todos los campos en la ventana de Cuadrados medios
+     */
     @FXML
     void cleanMiddleSquares() {
         middleSquaresResult.clear();
@@ -161,6 +198,9 @@ public class FXMLController implements Initializable {
         generateMiddleSquearesButton.setDisable(true);
     }
 
+    /**
+     * Inicia la generación de números con el método de cuadrados medios
+     */
     @FXML
     void generateMiddleSqueares() {
         String seed = seedTextField.getText();
@@ -183,6 +223,11 @@ public class FXMLController implements Initializable {
         }
     }
 
+    /**
+     * Inicia el hilo de generación de números con el método de Cuadrados medios
+     *
+     * @param meanSquares objeto de la clase MeanSquares con la información de la seed y opcionalmente el número de iteraciones
+     */
     private void startThreadMiddlleSquares(MiddleSquares meanSquares) {
         try {
             threadMeanSquaresExec = new Thread(() -> {
@@ -196,6 +241,9 @@ public class FXMLController implements Initializable {
         }
     }
 
+    /**
+     * Detiene el hilo de la ejecución de del método de cuadrados medios
+     */
     @FXML
     void stopMiddleSqueares() {
         threadMeanSquaresExec.interrupt();
@@ -205,6 +253,9 @@ public class FXMLController implements Initializable {
         generateMiddleSquearesButton.setDisable(false);
     }
 
+    /**
+     * Inicia la generación de números con el método de Distribución Uniforme
+     */
     @FXML
     void generateUniformDistribution() {
         uniformDistriResult.clear();
@@ -219,26 +270,41 @@ public class FXMLController implements Initializable {
         uniformDistriResult.addAll(operationUniformDistribution.getListNumberPseudo());
     }
 
+    /**
+     * Redirige a la ventana del método de cuadrados medios
+     */
     @FXML
     void goToMiddleSquaresTab() {
         mainTabbedPanel.getSelectionModel().select(0);
     }
 
+    /**
+     * Redirige a la ventana del método de congruencia lineal
+     */
     @FXML
     void goToCongruentialLinealTab() {
         mainTabbedPanel.getSelectionModel().select(1);
     }
 
+    /**
+     * Redirige a la ventana del método de congruencia multiplicativa
+     */
     @FXML
     void goToCongruentialMultiTab() {
         mainTabbedPanel.getSelectionModel().select(2);
     }
 
+    /**
+     * Redirige a la ventana del método de Distribución Uniforme
+     */
     @FXML
     void goToUniformTab() {
         mainTabbedPanel.getSelectionModel().select(3);
     }
 
+    /**
+     * Redirige a la ventana de la prueba de medias
+     */
     @FXML
     void goToTestMeans() {
         cleanMeanTest();
@@ -246,6 +312,9 @@ public class FXMLController implements Initializable {
         mainTabbedPanel.getSelectionModel().select(4);
     }
 
+    /**
+     * Redirige a la ventana de la prueba de varianzas
+     */
     @FXML
     void goToTestVariance() {
         cleanVarianceTest();
@@ -253,6 +322,9 @@ public class FXMLController implements Initializable {
         mainTabbedPanel.getSelectionModel().select(5);
     }
 
+    /**
+     * Redirige a la ventana de la prueba de K-S
+     */
     @FXML
     void goToTestKS() {
         cleanKSTest();
@@ -263,7 +335,11 @@ public class FXMLController implements Initializable {
 
     @FXML
     void openAbout() {
-
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Acerca de");
+        alert.setHeaderText("Simulación");
+        alert.setContentText("Julian David Grijalba Bernal \n Walter Mauricio Cuervo");
+        alert.showAndWait();
     }
 
     private void showAlertCantGenerate() {
@@ -274,11 +350,17 @@ public class FXMLController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Habilita o deshabilita el campo para ingresar la cantidad de números a generar en el método de cuadrados medios
+     */
     @FXML
     void switchIterations() {
         infiniteGenerationInput.setDisable(infiniteGenerationToggle.isSelected());
     }
 
+    /**
+     * Ejecuta una prueba de medias, tomando los numeros cargados en el ListView
+     */
     @FXML
     void testMeans() {
         MeanTest meanTest = new MeanTest(listMeanTest.getItems(), (int) meanAcceptGradesSlider.getValue());
@@ -295,6 +377,10 @@ public class FXMLController implements Initializable {
         meanValidLabel.setTextFill(isValid ? GUIUtils.OK_COLOR : GUIUtils.ERROR_COLOR);
     }
 
+    /**
+     * Establece los números a evaluar en el método de evaluación correspondiente, la lista se toma de la pestaña actual
+     * @param list ListView correspondiente al método de evaluacion
+     */
     private void setResultsInListView(ListView<Double> list) {
         switch (mainTabbedPanel.getSelectionModel().getSelectedIndex()) {
             case 0:
@@ -314,6 +400,9 @@ public class FXMLController implements Initializable {
         }
     }
 
+    /**
+     * Ejecuta una prueba de varianzas, tomando los numeros cargados en el ListView
+     */
     public void testVariances() {
         VarianceTest varianceTest = new VarianceTest(listVarianceTest.getItems(), (int) varianceAcceptGradesSlider.getValue());
         boolean isValid = varianceTest.isValid();
@@ -333,7 +422,10 @@ public class FXMLController implements Initializable {
         varianceValidLabel.setTextFill(isValid ? GUIUtils.OK_COLOR : GUIUtils.ERROR_COLOR);
     }
 
-    public void testKS(ActionEvent event) {
+    /**
+     * Ejecuta una prueba de K-S, tomando los numeros cargados en el ListView
+     */
+    public void testKS() {
         KolmogorovSmirnov ks = new KolmogorovSmirnov((int) KSAcceptGradesSlider.getValue(), listKSTest.getItems());
         ks.calculateFinalValue();
         ks.calculateFrequency();
@@ -364,14 +456,13 @@ public class FXMLController implements Initializable {
             intervalos.getData().add(new XYChart.Data<>("" + i, ks.getListInterval().get(i).getFrequencyGet()));
         }
         histograma.getData().add(intervalos);
-//        for (int i = 0; i < histograma.getData().get(0).getData().size(); i++) {
-//            displayLabelForData(histograma.getData().get(0).getData().get(i));
-//        }
-
         histograma.getData().get(0).getData().forEach(this::displayLabelForData);
         histograma.setVisible(true);
     }
 
+    /**
+     * limpia todos los campos en la ventana de prueba de medias
+     */
     private void cleanMeanTest() {
         listMeanTest.setItems(null);
         meanAcceptGradesSlider.setValue(GUIUtils.ACCEPT_GRADES);
@@ -386,6 +477,9 @@ public class FXMLController implements Initializable {
         meanValidLabel.setText("");
     }
 
+    /**
+     * limpia todos los campos en la ventana de prueba de varianzas
+     */
     private void cleanVarianceTest() {
         listVarianceTest.setItems(null);
         varianceAcceptGradesSlider.setValue(GUIUtils.ACCEPT_GRADES);
@@ -403,6 +497,9 @@ public class FXMLController implements Initializable {
         varianceValidLabel.setText("");
     }
 
+    /**
+     * limpia todos los campos en la ventana de prueba de K-S
+     */
     private void cleanKSTest() {
         listKSTest.setItems(null);
         ksAcceptationGradesLabel.setText("" + GUIUtils.ACCEPT_GRADES);
@@ -416,24 +513,22 @@ public class FXMLController implements Initializable {
         ksDmaxPLabel.setText("");
         KsValidLabel.setText("");
         histograma.setVisible(false);
+        histograma.getData().clear();
     }
 
+    /**
+     * agrega un tooltip a cada data cargado en el barchart con el valor correspondiente
+     * @param data XYData incluida en las series del BartChart
+     */
     private void displayLabelForData(XYChart.Data<String, Number> data) {
-        final Node node = data.getNode();
-        Tooltip.install(node, new Tooltip(data.getYValue().intValue() + ""));
-        final Text dataText = new Text(data.getYValue().intValue() + "");
-        node.parentProperty().addListener((ov, oldParent, parent) -> {
-            Group parentGroup = (Group) parent;
-            parentGroup.getChildren().add(dataText);
-        });
-
-        node.boundsInParentProperty().addListener((ov, oldBounds, bounds) -> {
-            dataText.setLayoutX(Math.round(bounds.getMinX() + bounds.getWidth() / 2 - dataText.prefWidth(-1) / 2));
-            dataText.setLayoutY(Math.round(bounds.getMinY() - dataText.prefHeight(-1) * 0.5));
-        });
+        Tooltip.install(data.getNode(), new Tooltip(data.getYValue().intValue() + ""));
     }
 
-
+    /**
+     * Inicializa la interfaz gráfica
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         gui = new GUIUtils();

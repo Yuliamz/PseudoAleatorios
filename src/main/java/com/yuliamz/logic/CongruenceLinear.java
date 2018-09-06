@@ -3,7 +3,7 @@ package com.yuliamz.logic;
 /**
  * @author Walter
  */
-public class Congruence_linear {
+public class CongruenceLinear {
     public int b;
     private int a;
     private int m;
@@ -19,7 +19,7 @@ public class Congruence_linear {
      * @param xo
      * @param iteration
      */
-    public Congruence_linear(int a, int b, int m, int xo, int iteration) {
+    public CongruenceLinear(int a, int b, int m, int xo, int iteration) {
         super();
         this.a = a;
         this.b = b;

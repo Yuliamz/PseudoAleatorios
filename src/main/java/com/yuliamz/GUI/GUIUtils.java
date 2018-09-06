@@ -1,7 +1,6 @@
 package com.yuliamz.GUI;
 
 import com.jfoenix.controls.JFXTextField;
-import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 
@@ -15,6 +14,9 @@ class GUIUtils {
         createErrorGlow();
     }
 
+    /**
+     * Crea el efecto de error para los TextField
+     */
     private void createErrorGlow() {
         ERROR_GLOW.setOffsetY(3);
         ERROR_GLOW.setOffsetX(3);
@@ -22,16 +24,26 @@ class GUIUtils {
         ERROR_GLOW.setWidth(90);
         ERROR_GLOW.setHeight(90);
     }
-    
+
+    /**
+     * Establece un TextField como erroneo
+     *
+     * @param field JXTTextField para pintar
+     */
     public void setTextFieldAsError(JFXTextField field){
-            field.setFocusColor(ERROR_COLOR);
-            field.setUnFocusColor(ERROR_COLOR);
-            field.setEffect(ERROR_GLOW);
+        field.setFocusColor(ERROR_COLOR);
+        field.setUnFocusColor(ERROR_COLOR);
+        field.setEffect(ERROR_GLOW);
     }
+
+    /**
+     * Establece un TextField como válido
+     * @param field JXTTextField para pintar
+     */
     public void setTextFieldAsOK(JFXTextField field){
-            field.setFocusColor(OK_COLOR);
-            field.setUnFocusColor(Color.BLACK);
-            field.setEffect(null);
+        field.setFocusColor(OK_COLOR);
+        field.setUnFocusColor(Color.BLACK);
+        field.setEffect(null);
     }
 
 }

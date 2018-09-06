@@ -1,7 +1,6 @@
 package com.yuliamz.test;
 
 import org.apache.commons.math3.distribution.KolmogorovSmirnovDistribution;
-import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.stat.inference.KolmogorovSmirnovTest;
 
 

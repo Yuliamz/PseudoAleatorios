@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Método de generación de cuadrados medios
  * @author Yuliamz
  */
 public class MiddleSquares {
@@ -18,6 +19,12 @@ public class MiddleSquares {
     private ArrayList<BigInteger> extracts;
     private final int maxDigits;
 
+    /**
+     * Constructor
+     *
+     * @param seed       Semilla
+     * @param iterations cantidad de números a generar
+     */
     public MiddleSquares(BigInteger seed, int iterations) {
         this.seed = seed;
         this.iterations = iterations;
@@ -26,6 +33,11 @@ public class MiddleSquares {
         this.maxDigits = calcMaxDigits();
     }
 
+    /**
+     * Constructor
+     * Si no se establece un maximo de iteraciones, se establecen como el maximo posible de Integers
+     * @param seed semilla
+     */
     public MiddleSquares(BigInteger seed) {
         this.seed = seed;
         this.iterations = Integer.MAX_VALUE;
@@ -34,6 +46,11 @@ public class MiddleSquares {
         this.maxDigits = calcMaxDigits();
     }
 
+    /**
+     * Extrae los números correspondientes al tamño de la semilla
+     * @param number
+     * @return
+     */
     private BigInteger extract(BigInteger number) {
         StringBuilder num = new StringBuilder(number.toString());
         while (num.length() < maxDigits) num.insert(0, "0");
@@ -41,6 +58,10 @@ public class MiddleSquares {
         return new BigInteger(num.substring(start, start + seedSize));
     }
 
+    /**
+     * Genera los números pseudoaleatorios en una lista
+     * @return
+     */
     public ArrayList<BigInteger> generate() {
         BigInteger result = extract(seed.pow(2));
         extracts.add(new BigInteger(result.toString()));
@@ -56,12 +77,21 @@ public class MiddleSquares {
         return extracts;
     }
 
+    /**
+     *
+     * @param value número elevado al cuadrado
+     * @return Cadena de texto con ceros a la izquierda hasta completar el maximo tamaño posible del número
+     */
     private String completeNumber(BigInteger value) {
         StringBuilder builder = new StringBuilder(value.toString());
         while (builder.length() < seedSize) builder.insert(0, 0);
         return builder.toString();
     }
 
+    /**
+     * Genera los números pseudoaleatorios en la lista dada
+     * @param list
+     */
     public void generateIn(ObservableList<Double> list) {
         extracts.clear();
         BigInteger pow = seed.pow(2);
@@ -77,26 +107,44 @@ public class MiddleSquares {
         }
     }
 
+    /**
+     *
+     * @return lista de extracciones con ceros a la izquierda hasta completar el máximo posible
+ */
     private List<String> getFullExtracts() {
         ArrayList<String> al = new ArrayList<>();
         extracts.forEach(e -> al.add(completeNumber(e)));
         return al;
     }
 
+    /**
+     * calcula la maxima cantidad de digitos que puede tener un numero generado al elevar al cuadrado una extracción
+     * por ejemplo: para una semilla de 4 digitos se eleva al cuadrado 9999 y se cuenta la cantidad de digitos
+     * @return
+     */
     private int calcMaxDigits() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < seedSize; i++) builder.append(9);
         return new BigInteger(builder.toString()).pow(2).toString().length();
     }
 
+    /**
+     * muestra las extracciones por consola
+     */
     public void printNumbers() {
         extracts.forEach(e -> System.out.println(e.toString()));
     }
 
+    /**
+     * muestra las extracciones con ceros a la izquierda hasta completar el maximo posible por consola
+     */
     public void printFullExtracts() {
         getFullExtracts().forEach(System.out::println);
     }
 
+    /**
+     * gets y sets
+     */
     public BigInteger getSeed() {
         return seed;
     }

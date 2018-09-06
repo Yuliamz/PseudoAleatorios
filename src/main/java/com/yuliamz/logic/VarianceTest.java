@@ -6,6 +6,7 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import java.util.List;
 
 /**
+ * Prueba de varianzas
  * @author Yuliamz
  */
 public class VarianceTest {
@@ -23,6 +24,10 @@ public class VarianceTest {
     private final double LI;
     private final List<Double> list;
 
+    /**
+     * @param numbers          lista de números a evaluar
+     * @param acceptationGrade Grados de aceptación
+     */
     public VarianceTest(List<Double> numbers, int acceptationGrade) {
         this.list = numbers;
         this.numbersQuantity = list.size();
@@ -40,6 +45,10 @@ public class VarianceTest {
         this.LI = chiSqaure1 / (12 * (numbersQuantity - 1));
     }
 
+    /**
+     * verífica si los números pasan la prueba de varianzas
+     * @return true si es válido, false en caso contrario
+     */
     public boolean isValid() {
         return this.variance >= this.LS && this.variance <= this.LI;
     }
@@ -64,6 +73,9 @@ public class VarianceTest {
         return sb.toString();
     }
 
+    /**
+     * gets y sets
+     */
     public int getAcceptationGrade() {
         return acceptationGrade;
     }

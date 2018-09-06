@@ -1,6 +1,5 @@
 package com.yuliamz.test;
 
-import com.yuliamz.logic.Interval;
 import com.yuliamz.logic.KolmogorovSmirnov;
 
 import java.util.ArrayList;

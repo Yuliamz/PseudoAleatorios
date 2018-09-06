@@ -1,14 +1,6 @@
 package com.yuliamz.logic;
 
-import org.apache.commons.math3.distribution.KolmogorovSmirnovDistribution;
-import org.apache.commons.math3.distribution.RealDistribution;
-import org.apache.commons.math3.stat.inference.KolmogorovSmirnovTest;
-import org.apache.commons.math3.stat.inference.TestUtils;
-import org.apache.commons.math3.util.FastMath;
-
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class KolmogorovSmirnov {
@@ -19,14 +11,13 @@ public class KolmogorovSmirnov {
     private double MIN;
     private double medium;
     private List<Double> listNumber;
-    public static final double NUMBER_INTERVALS = 10.0;
-    private Interval interval;
+    private static final double NUMBER_INTERVALS = 10.0;
     private ArrayList<Interval> listInterval;
 
 
 
     public KolmogorovSmirnov(int aceptatio, List<Double> listNumber) {
-        interval = new Interval();
+        Interval interval = new Interval();
         this.listInterval = new ArrayList<>();
         this.aceptatio = aceptatio;
         this.listNumber = listNumber;
@@ -45,8 +36,6 @@ public class KolmogorovSmirnov {
     public double calculatedDMAXP(){
      return 1.36/(Math.sqrt(this.numbersAmount));
     }
-
-
 
     /**
      * metodo para calcular la diferencia maxima
@@ -140,7 +129,7 @@ public class KolmogorovSmirnov {
         listInterval.get(listInterval.size()-1).setFinalValue(aux2);
     }
 
-    public void addList(){
+    private void addList() {
         for (int i = 0; i < NUMBER_INTERVALS ; i++) {
             this.listInterval.add(new Interval());
         }
@@ -151,7 +140,7 @@ public class KolmogorovSmirnov {
      * metodo que devuelve la media
      * @return
      */
-    public Double average(){
+    private Double average() {
         return listNumber.stream().mapToDouble(a->a).average().orElse(Double.NaN);
     }
 
@@ -159,7 +148,7 @@ public class KolmogorovSmirnov {
      * metodo que permite contar la cantidad de elementos de un vector
      * @return
      */
-    public int count(){
+    private int count() {
         return this.listNumber.size();
     }
 
@@ -167,7 +156,7 @@ public class KolmogorovSmirnov {
      * metodo que permite identificar el numero mayor de un vector
      * @return
      */
-    public double MAX(){
+    private double MAX() {
         return listNumber.stream().mapToDouble(a->a).max().orElse(Double.NaN);
     }
 
@@ -175,7 +164,7 @@ public class KolmogorovSmirnov {
      * metodo que permite identificar el numero menor de un vector
      * @return
      */
-    public double MIN(){
+    private double MIN() {
         return listNumber.stream().mapToDouble(a->a).min().orElse(Double.NaN);
     }
 

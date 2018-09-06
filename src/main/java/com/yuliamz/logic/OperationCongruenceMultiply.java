@@ -5,13 +5,13 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 
 public class OperationCongruenceMultiply {
-    private Congruence_Multiply multiply;
+    private CongruenceMultiply multiply;
     private ArrayList<Integer> listXi;
     private ArrayList<Double> listUi;
     private int Xi;
     private double Ui;
 
-    public OperationCongruenceMultiply(Congruence_Multiply multiply) {
+    public OperationCongruenceMultiply(CongruenceMultiply multiply) {
         listUi = new ArrayList<>();
         listXi = new ArrayList<>();
         this.multiply = multiply;
@@ -47,12 +47,12 @@ public class OperationCongruenceMultiply {
     }
 
 
-    public Congruence_Multiply getMultiply() {
+    public CongruenceMultiply getMultiply() {
         return multiply;
     }
 
 
-    public void setMultiply(Congruence_Multiply multiply) {
+    public void setMultiply(CongruenceMultiply multiply) {
         this.multiply = multiply;
     }
 

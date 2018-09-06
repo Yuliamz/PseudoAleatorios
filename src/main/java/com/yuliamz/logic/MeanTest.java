@@ -3,7 +3,7 @@ package com.yuliamz.logic;
 import java.util.List;
 
 /**
- *
+ *  Prueba de Medias
  * @author Yuliamz
  */
 public class MeanTest {
@@ -18,6 +18,12 @@ public class MeanTest {
     private final double LI;
     private final List<Double> list;
 
+    /**
+     * Constructor
+     *
+     * @param numbers          Números pseudoaleatorios a validar
+     * @param acceptationGrade grados de aceptación
+     */
     public MeanTest(List<Double> numbers, int acceptationGrade) {
         this.acceptationGrade=acceptationGrade;
         this.errorGrade=100-acceptationGrade;
@@ -29,7 +35,11 @@ public class MeanTest {
         this.LI=(0.5)-Z*(1/(Math.sqrt(12*numbersQuantity)));
         this.LS=(0.5)+Z*(1/(Math.sqrt(12*numbersQuantity)));
     }
-    
+
+    /**
+     * verífica si los números pasan la prueba de medias
+     * @return true si es válido, false en caso contrario
+     */
     public boolean isValid(){
         return this.average>=this.LI && this.average<=this.LS;
     }
@@ -51,6 +61,9 @@ public class MeanTest {
         return sb.toString();
     }
 
+    /**
+     * gets y sets
+     */
     public int getAcceptationGrade() {
         return acceptationGrade;
     }
